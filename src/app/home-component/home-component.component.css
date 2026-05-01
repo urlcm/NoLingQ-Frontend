@@ -1,0 +1,9 @@
+.table-home{
+
+}
+
+.container{
+    display: flex;
+    flex-direction: row-reverse;
+    
+}

@@ -1,1 +1,15 @@
-<p>home-component works!</p>
+<main>
+    <table class="table-home">
+        <thead>
+            <th>{{this.lecture}}</th>
+            <th>{{this.language}}</th>
+        </thead>
+        <tr>
+            <td>{{this.nameLecture}}</td>
+            <td>{{this.languageLecture}}</td>
+        </tr>
+    </table>
+    <section class="container">
+        <button [routerLink]="['/lecture']">{{this.newLecture}}</button>
+    </section>
+</main>
