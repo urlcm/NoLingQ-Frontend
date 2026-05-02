@@ -5,11 +5,12 @@
             <th>{{this.language}}</th>
         </thead>
         <tr>
-            <td>{{this.nameLecture}}</td>
+            <td (click)="goToLecture()" class="lecture">{{this.nameLecture}}</td>
             <td>{{this.languageLecture}}</td>
+            <td><button>{{this.textButton}}</button></td>
         </tr>
     </table>
     <section class="container">
-        <button [routerLink]="['/new-lecture']">{{this.newLecture}}</button>
+        <button (click)="goToNewLecture()">{{this.newLecture}}</button>
     </section>
 </main>
