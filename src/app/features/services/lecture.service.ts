@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Lecture } from '../../shared/models/Lecture';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,6 @@ export class LectureService {
   constructor(private httpClient: HttpClient) { }
 
   SaveLecture(lecture: Lecture) : Observable<Object>{
-    return this.httpClient.post(this.url)
+    return this.httpClient.post(this.url,lecture);
   }
 }

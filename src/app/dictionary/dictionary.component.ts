@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './dictionary.component.css'
 })
 export class DictionaryComponent {
-
+  url_dictionary:string;
 }
