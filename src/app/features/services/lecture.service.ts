@@ -8,12 +8,12 @@ import { Lecture } from '../../shared/models/Lecture';
 })
 export class LectureService {
 
-  private url = "http://localhost:8080/lecture-controller/";
-  private urlSaveObject = ""; 
+  private url_main = "http://localhost:8080/lecture-controller/";
+  private url_save = "lecture/save-lecture"; 
 
   constructor(private httpClient: HttpClient) { }
 
   SaveLecture(lecture: Lecture) : Observable<Object>{
-    return this.httpClient.post(this.url,lecture);
+    return this.httpClient.post(this.url_main,lecture);
   }
 }
