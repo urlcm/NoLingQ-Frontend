@@ -9,11 +9,19 @@ import { Lecture } from '../../shared/models/Lecture';
 export class LectureService {
 
   private url_main = "http://localhost:8080/lecture-controller/";
-  private url_save = "lecture/save-lecture"; 
+  private url_save = "/save"; 
 
   constructor(private httpClient: HttpClient) { }
 
-  SaveLecture(lecture: Lecture) : Observable<Object>{
-    return this.httpClient.post(this.url_main,lecture);
+  SaveLecture(lecture: Lecture) : Observable<number>{
+    return this.httpClient.post<number>(this.url_main+this.url_save,lecture);
+  }
+
+  getLectures(lectures :Lecture[]){
+    this.httpClient.get<Lecture[]>(this.url_main+this.url_save).subscribe(
+      (data =>{
+        lectures = data;
+      })
+    );
   }
 }

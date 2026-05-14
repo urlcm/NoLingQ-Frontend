@@ -11,5 +11,5 @@ import { DefinitionViewComponent } from "../definition-view/definition-view.comp
   styleUrl: './lecture-view.component.css'
 })
 export class LectureViewComponent {
-
+  
 }
