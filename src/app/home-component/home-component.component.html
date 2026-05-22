@@ -1,15 +1,19 @@
 <main>
     <table class="table-home">
-        *ngFor="let item of list"
         <thead>
             <th>{{this.lecture}}</th>
             <th>{{this.language}}</th>
         </thead>
-        <tr>
-            <td (click)="goToLecture()" class="lecture">{{this.nameLecture}}</td>
-            <td>{{this.languageLecture}}</td>
-            <td><button>{{this.textButton}}</button></td>
-        </tr>
+        <tbody>dwell
+            @for(singleLecture of this.lectures; track singleLecture.idLecture)
+            {
+            <tr>
+                <td (click)="goToLecture(singleLecture.idLecture)" class="lecture">{{singleLecture.name}}</td>
+                <td>{{this.languageLecture}}</td>
+                <td><button>{{this.textButton}}</button></td>
+            </tr>
+            }
+        </tbody>
     </table>
     <section class="container">
         <button (click)="goToNewLecture()">{{this.newLecture}}</button>

@@ -8,8 +8,9 @@ import { Lecture } from '../../shared/models/Lecture';
 })
 export class LectureService {
 
-  private url_main = "http://localhost:8080/lecture-controller/";
+  private url_main = "http://localhost:8081/lecture-controller";
   private url_save = "/save"; 
+  private url_get = "/get-lectures";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -17,11 +18,7 @@ export class LectureService {
     return this.httpClient.post<number>(this.url_main+this.url_save,lecture);
   }
 
-  getLectures(lectures :Lecture[]){
-    this.httpClient.get<Lecture[]>(this.url_main+this.url_save).subscribe(
-      (data =>{
-        lectures = data;
-      })
-    );
+  getLectures():Observable<Lecture[]> {
+    return this.httpClient.get<Lecture[]>(this.url_main+this.url_get);
   }
 }

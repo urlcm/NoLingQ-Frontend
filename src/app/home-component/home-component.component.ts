@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from "../navbar/navbar.component";
-import { LectureComponentComponent } from "../lecture-component/lecture-component.component";
-import { LectureMediaComponent } from "../lecture-media/lecture-media.component";
-import { DictionaryComponent } from "../dictionary/dictionary.component";
-import { Router, RouterLink } from "@angular/router";
 import { NavigationService} from '../features/services/Navigation.services';
 import { LectureService } from '../features/services/Lecture.service';
+import { NgForOf } from "@angular/common";
+import { Lecture } from '../shared/models/Lecture';
+import { LectureState } from '../shared/state/LectureState.service';
+import { findById } from '../shared/utils/lecture.utils';
 
 @Component({
   selector: 'app-home-component',
-  imports: [NavbarComponent, LectureComponentComponent, LectureMediaComponent, DictionaryComponent, RouterLink],
+  imports: [NgForOf],
   templateUrl: './home-component.component.html',
   styleUrl: './home-component.component.css'
 })
 export class HomeComponentComponent implements OnInit{
 
-  lectures = [];
+  lectures:Lecture[] = [];
 
   lecture: string = "Lectura";
   language: string = "Idioma";
@@ -28,14 +27,17 @@ export class HomeComponentComponent implements OnInit{
 
   constructor(
     private navigationServices:NavigationService,
-    private lectureService:LectureService) {}
+    private lectureService:LectureService,
+    private lectureStateService:LectureState) {}
 
   ngOnInit(): void {
     this.getLectures();
   }
 
-  goToLecture(){
-    this.navigationServices.goToLecture();
+  goToLecture(id:number){
+    console.log("Click ejecutado, id:", id);
+    this.lectureStateService.updateLecture (this.filterById(id));
+    this.navigationServices.goToLecture(id);
   }
 
   goToNewLecture(){
@@ -43,6 +45,23 @@ export class HomeComponentComponent implements OnInit{
   }
 
   getLectures(){
-    this.lectureService.getLectures(this.lectures);
+    this.lectureService.getLectures().subscribe(
+      {
+        next: (data) => {
+          this.lectures = data;
+          console.info(this.lectures);
+        },
+        error: (error : any) => {
+          console.error("Se presento el siguiente error: "+error);
+        }
+      });
+  }
+
+  setLecture(lecture:Lecture){
+    this.lectureStateService.updateLecture(lecture);
+  }
+
+  filterById(id:number):Lecture{
+    return findById(this.lectures, id);
   }
 }

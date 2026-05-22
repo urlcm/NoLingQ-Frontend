@@ -5,16 +5,15 @@ import { Router } from "@angular/router";
 export class NavigationService {
     constructor(private router:Router){}
 
-    goToHome()
-    {
-        this.router.navigate(["home"]);
+    goToHome(){
+        this.router.navigate(["/home"]);
     }
     
-    goToLecture(){
-        this.router.navigate(["lecture"]);
+    goToLecture(id:number){
+        this.router.navigate(["lecture",id]);
     }
 
     goToCreateNewLecture(){
-        this.router.navigate(["new-lecture"]);
+        this.router.navigate(["/new-lecture"]);
     }
 }

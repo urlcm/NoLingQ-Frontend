@@ -6,6 +6,6 @@ import { CreateLectureComponent } from './create-lecture/create-lecture.componen
 export const routes: Routes = [
         {path: "",component: HomeComponentComponent, },
         {path: "home",component: HomeComponentComponent},
-        {path: "lecture",component: LectureViewComponent},
+        {path: "lecture/:id",component: LectureViewComponent},
         {path: "new-lecture",component:CreateLectureComponent}
 ];
