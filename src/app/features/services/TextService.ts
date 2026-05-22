@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Lecture } from "../../shared/models/Lecture";
@@ -7,7 +7,7 @@ import { Lecture } from "../../shared/models/Lecture";
   providedIn: 'root'
 })
 export class TextService{
-  main_url = "http://localhost:4200/text-controller/"
+  main_url = "http://localhost:8081/text-controller/"
   get_url = "extract-text"
   getReplace_url = "replace"; 
 
@@ -15,11 +15,13 @@ export class TextService{
   private lecture: Lecture
 
   GetText(path:string, page:number): Observable<string> {
-    return this.httpClient.get<string>(this.main_url + this.get_url, {
-      params: {
-        path,
-        page
-      }
+        const params = new HttpParams()
+        .set('path', path)
+        .set('page', page);
+
+    return this.httpClient.get(this.main_url + this.get_url, {
+      params,
+      responseType: "text"
     });
   }
     

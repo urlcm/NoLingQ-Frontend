@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TextService } from '../features/services/TextService';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Route } from '@angular/router';
@@ -17,7 +17,13 @@ import { SourceLectureService } from '../features/services/SourceLecture.service
 export class LectureComponentComponent {
   constructor(){}
 
-  page = 1;
+  @Input() textPage: string;
 
+  @Output() changePageFromChild = new EventEmitter<number>();
+  
+  page:number;
 
+  changePage(){
+    this.changePageFromChild.emit(this.page);
+  }
 }

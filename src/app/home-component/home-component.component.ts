@@ -49,7 +49,7 @@ export class HomeComponentComponent implements OnInit{
       {
         next: (data) => {
           this.lectures = data;
-          console.info(this.lectures);
+          console.info("Lecturas obtenidas; ",this.lectures);
         },
         error: (error : any) => {
           console.error("Se presento el siguiente error: "+error);
@@ -62,6 +62,9 @@ export class HomeComponentComponent implements OnInit{
   }
 
   filterById(id:number):Lecture{
-    return findById(this.lectures, id);
+    let lectureFilter:Lecture = findById(this.lectures, id);
+    console.info("El id de la lectura es: "+id)
+    console.info("Objeto devuelto en el filtro: ",lectureFilter);
+    return lectureFilter;
   }
 }

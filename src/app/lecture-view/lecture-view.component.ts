@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { LectureComponentComponent } from "../lecture-component/lecture-component.component";
 import { LectureMediaComponent } from "../lecture-media/lecture-media.component";
 import { DictionaryComponent } from "../dictionary/dictionary.component";
@@ -24,32 +24,36 @@ export class LectureViewComponent implements OnInit {
     private textService: TextService,
     private route: ActivatedRoute,
     private progressService: ProgressService,
-    private sourceLectureService: SourceLectureService,
     private lectureStateService:LectureState
   ) { }
+
 
   idLecture: number;
   progress: Progress;
   sourceLecture: SourceLecture;
-  text: string = "";
-  page: number = 1;
+  @Output() textOutput: string = "";
+  page: number = 15;
   lecture:Lecture = new Lecture;
 
   ngOnInit(): void {
     this.idLecture = +this.route.snapshot.paramMap.get("id");
     this.lectureStateService.currentLecture$.subscribe(
       {
-        next: (data) => this.lecture = data,
+        next: (data) => {this.lecture = data
+          console.info("El objeto traido es: ",this.lecture)
+          this.getText();
+        },
       }
     );
-    this.getSourceLectureById();
+    
   }
 
-  //falta agregar el lecutre
   getText() {
     this.textService.GetText(this.lecture.sourceLecture.urlSource, this.page).subscribe(
       {
-        next: (textData) => this.text = textData,
+        next: (textData) => {this.textOutput = textData
+          console.info("Texto traido",textData)
+        },
         error: (error) => console.error("Se presento el siguiente error en getText ",error)
       }
     )
@@ -67,17 +71,8 @@ export class LectureViewComponent implements OnInit {
     });
   }
 
-  getSourceLectureById() {
-    this.sourceLectureService.getSourceLectureById(this.idLecture).subscribe({
-      next: (data) => {
-        console.info("Objeto devuelto", data);
-        this.sourceLecture = data;
-        this.getText();
-      },
-      error: (error: any) => {
-        console.error("Se presento el siguiente error en getSourLecture ",error)
-      }
-    })
-
+  changePageToFather(page : number){
+    this.page = page;
+    console.info("Se cambio la pagina a ",this.page);
   }
 }

@@ -10,7 +10,7 @@ export class ProgressService{
     constructor(private httpClient: HttpClient) {}
     public progress: Progress
 
-    url_main = "http://localhost:4200/progress-controller/"
+    url_main = "http://localhost:8081/progress-controller/"
     url_gettById = "get-progress/"
 
     getProgressById(id:number):Observable<Progress>{
