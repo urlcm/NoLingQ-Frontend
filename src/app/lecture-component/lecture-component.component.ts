@@ -21,9 +21,19 @@ export class LectureComponentComponent {
 
   @Output() changePageFromChild = new EventEmitter<number>();
   
-  page:number;
+  page:number = 1;
 
   changePage(){
     this.changePageFromChild.emit(this.page);
+  }
+
+  changeBackPage(){
+    this.page--;
+    this.changePageFromChild.emit(this.page)
+  }
+
+  changeNextPage(){
+    this.page++;
+    this.changePageFromChild.emit(this.page)
   }
 }

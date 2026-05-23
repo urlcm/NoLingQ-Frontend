@@ -74,5 +74,6 @@ export class LectureViewComponent implements OnInit {
   changePageToFather(page : number){
     this.page = page;
     console.info("Se cambio la pagina a ",this.page);
+    this.getText();
   }
 }

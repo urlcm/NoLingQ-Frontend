@@ -1,8 +1,8 @@
 <main>
     <div class="container">
-        <button (click)="changePage()"> "<" </button>
-        <input type="number" name="page" [(ngModel)]='page'>
-        <button (click)="changePage()">">"</button>
+        <button (click)="changeBackPage()"> "<" </button>
+        <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
+        <button (click)="changeNextPage()">">"</button>
     </div>
     <p class="text">{{this.textPage}}</p>
 </main>
