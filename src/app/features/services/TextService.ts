@@ -12,8 +12,6 @@ export class TextService{
   getReplace_url = "replace"; 
 
   constructor(private httpClient: HttpClient) {}
-  private lecture: Lecture
-
   GetText(path:string, page:number): Observable<string> {
         const params = new HttpParams()
         .set('path', path)

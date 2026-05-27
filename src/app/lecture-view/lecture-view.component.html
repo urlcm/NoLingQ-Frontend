@@ -1,7 +1,7 @@
 <main class="lecture-view">
     <div class="container">
         <aside>
-        <app-lecture-component [textPage]="textOutput" (changePageFromChild)="changePageToFather($event)"/>
+        <app-lecture-component [textPage]="textOutput" [WordsInput]="Words" (changePageFromChild)="changePageToFather($event)"/>
         </aside>
         <section>
             <app-dictionary/>

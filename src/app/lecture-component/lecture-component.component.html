@@ -1,8 +1,13 @@
 <main>
-    <div class="container">
+    <section class="container">
         <button (click)="changeBackPage()"> "<" </button>
-        <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
-        <button (click)="changeNextPage()">">"</button>
-    </div>
-    <p class="text">{{this.textPage}}</p>
+                <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
+                <button (click)="changeNextPage()">">"</button>
+    </section>
+    <section class="words-container">
+        @for (word of WordsInput; track $index) {
+        <span class="word">{{word.word}}</span>
+        <span class="space"></span>
+        }
+    </section>
 </main>

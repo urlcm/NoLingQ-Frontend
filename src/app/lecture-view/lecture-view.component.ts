@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { LectureComponentComponent } from "../lecture-component/lecture-component.component";
 import { LectureMediaComponent } from "../lecture-media/lecture-media.component";
 import { DictionaryComponent } from "../dictionary/dictionary.component";
@@ -6,11 +6,12 @@ import { DefinitionViewComponent } from "../definition-view/definition-view.comp
 import { TextService } from '../features/services/TextService';
 import { ActivatedRoute } from '@angular/router';
 import { ProgressService } from '../features/services/Progress.sevice';
-import { SourceLectureService } from '../features/services/SourceLecture.service';
 import { Progress } from '../shared/models/Progress';
 import { SourceLecture } from '../shared/models/SourceLecture';
 import { LectureState } from '../shared/state/LectureState.service';
 import { Lecture } from '../shared/models/Lecture';
+import { Word } from '../shared/models/Word';
+import { splitWord, WordToArray } from '../shared/utils/word.utils';
 
 @Component({
   selector: 'app-lecture-view',
@@ -34,6 +35,7 @@ export class LectureViewComponent implements OnInit {
   @Output() textOutput: string = "";
   page: number = 15;
   lecture:Lecture = new Lecture;
+  @Output() Words:Word[] = [];
 
   ngOnInit(): void {
     this.idLecture = +this.route.snapshot.paramMap.get("id");
@@ -51,8 +53,10 @@ export class LectureViewComponent implements OnInit {
   getText() {
     this.textService.GetText(this.lecture.sourceLecture.urlSource, this.page).subscribe(
       {
-        next: (textData) => {this.textOutput = textData
+        next: (textData) => {
+          this.textOutput = textData
           console.info("Texto traido",textData)
+          this.splitWordFromText();
         },
         error: (error) => console.error("Se presento el siguiente error en getText ",error)
       }
@@ -76,4 +80,10 @@ export class LectureViewComponent implements OnInit {
     console.info("Se cambio la pagina a ",this.page);
     this.getText();
   }
+
+  splitWordFromText(){
+      this.Words = WordToArray(splitWord(this.textOutput.trim()));
+      console.info("Cantidad de palabras: ", this.Words.length)
+  }
+
 }

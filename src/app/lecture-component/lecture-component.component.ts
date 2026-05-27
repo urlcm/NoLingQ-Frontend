@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Progress } from '../shared/models/Progress';
 import { SourceLecture } from '../shared/models/SourceLecture';
 import { SourceLectureService } from '../features/services/SourceLecture.service';
+import { Word } from '../shared/models/Word';
 
 @Component({
   selector: 'app-lecture-component',
@@ -18,6 +19,7 @@ export class LectureComponentComponent {
   constructor(){}
 
   @Input() textPage: string;
+  @Input() WordsInput:Word[];
 
   @Output() changePageFromChild = new EventEmitter<number>();
   

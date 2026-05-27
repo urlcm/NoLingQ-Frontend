@@ -1,0 +1,16 @@
+.word{
+    padding: .2rem;
+    background-color: rgb(182, 42, 182);
+}
+
+.word:hover{
+    cursor: pointer;
+}
+
+.words-container{
+    overflow-wrap: break-word;
+}
+
+.space{
+    margin: .5rem;
+}
