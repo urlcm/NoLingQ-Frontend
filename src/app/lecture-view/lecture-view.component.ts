@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { LectureComponentComponent } from "../lecture-component/lecture-component.component";
 import { LectureMediaComponent } from "../lecture-media/lecture-media.component";
 import { DictionaryComponent } from "../dictionary/dictionary.component";
@@ -36,13 +36,14 @@ export class LectureViewComponent implements OnInit {
   page: number = 15;
   lecture:Lecture = new Lecture;
   @Output() Words:Word[] = [];
+  @Output() receiveWordFromChild: string;
 
   ngOnInit(): void {
     this.idLecture = +this.route.snapshot.paramMap.get("id");
     this.lectureStateService.currentLecture$.subscribe(
       {
         next: (data) => {this.lecture = data
-          console.info("El objeto traido es: ",this.lecture)
+          //console.info("El objeto traido es: ",this.lecture)
           this.getText();
         },
       }
@@ -55,7 +56,7 @@ export class LectureViewComponent implements OnInit {
       {
         next: (textData) => {
           this.textOutput = textData
-          console.info("Texto traido",textData)
+          //console.info("Texto traido",textData)
           this.splitWordFromText();
         },
         error: (error) => console.error("Se presento el siguiente error en getText ",error)
@@ -84,6 +85,11 @@ export class LectureViewComponent implements OnInit {
   splitWordFromText(){
       this.Words = WordToArray(splitWord(this.textOutput.trim()));
       console.info("Cantidad de palabras: ", this.Words.length)
+  }
+
+  setWordToOutput(word:string){
+    this.receiveWordFromChild = word;
+    console.info("Llego la palabra: "+this.receiveWordFromChild);
   }
 
 }

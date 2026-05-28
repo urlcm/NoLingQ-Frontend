@@ -6,7 +6,7 @@
     </section>
     <section class="words-container">
         @for (word of WordsInput; track $index) {
-        <span class="word">{{word.word}}</span>
+        <span class="word" (click)="lookForWord(word.word)">{{word.word}}</span>
         <span class="space"></span>
         }
     </section>

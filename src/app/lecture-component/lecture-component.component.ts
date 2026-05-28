@@ -22,6 +22,8 @@ export class LectureComponentComponent {
   @Input() WordsInput:Word[];
 
   @Output() changePageFromChild = new EventEmitter<number>();
+
+  @Output() SearchWordFromChild = new EventEmitter<string>();
   
   page:number = 1;
 
@@ -37,5 +39,10 @@ export class LectureComponentComponent {
   changeNextPage(){
     this.page++;
     this.changePageFromChild.emit(this.page)
+  }
+
+  lookForWord(word:string){
+    this.SearchWordFromChild.emit(word);
+    console.log("Se envio la palabra: "+word);
   }
 }
