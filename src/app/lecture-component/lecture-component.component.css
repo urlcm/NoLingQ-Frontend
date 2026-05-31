@@ -15,26 +15,26 @@
 }
 
 .ignore, .very-know{
-    color: none;
+    background-color: none;
 }
 
 .unknown{
-    color: red;    
+    background-color: red;
 }
 
 .know{
-    color: rgb(252, 144, 42);
+    background-color: rgb(252, 144, 42);
 }
 
 .know-3{
-    color: rgb(236, 192, 110);
+    background-color: rgb(236, 192, 110);
 }
 
 .know-4{
-    color: rgb(248, 252, 42);
+    background-color: rgb(248, 252, 42);
 }
 
 .know-5{
-    color: rgb(161, 252, 42);
+    background-color: rgb(161, 252, 42);
 }
 

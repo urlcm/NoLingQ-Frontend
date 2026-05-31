@@ -1,12 +1,13 @@
 <main class="lecture-view">
     <div class="container">
         <aside>
-        <app-lecture-component [textPage]="textOutput" [WordsInput]="Words" (changePageFromChild)="changePageToFather($event)" (SearchWordFromChild)="setWordToOutput($event)"/>
+            <app-lecture-component [textPage]="textOutput" [WordsInput]="Words"
+                (changePageFromChild)="changePageToFather($event)" (SearchWordFromChild)="setWordToOutput($event)" />
         </aside>
         <section>
-            <app-dictionary [wordInput]="receiveWordFromChild" [trigger]="receiveWordFromChild"/>
-            <app-definition-view/>
+            <app-dictionary [wordInput]="receiveWordFromChild" [trigger]="receiveWordFromChild" />
+            <app-definition-view />
         </section>
     </div>
-    <app-lecture-media/>
+    <app-lecture-media />
 </main>
