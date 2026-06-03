@@ -1,13 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TextService } from '../features/services/TextService';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Route } from '@angular/router';
-import { ProgressService } from '../features/services/Progress.sevice';
-import { Observable } from 'rxjs';
-import { Progress } from '../shared/models/Progress';
-import { SourceLecture } from '../shared/models/SourceLecture';
-import { SourceLectureService } from '../features/services/SourceLecture.service';
 import { Word } from '../shared/models/Word';
+import { formatWord } from "../shared/utils/formatword.utils";
+import { WordService } from '../features/services/word.services';
+import { removeDuplicateWord } from '../shared/utils/filterwords.utils';
 
 @Component({
   selector: 'app-lecture-component',
@@ -16,10 +12,11 @@ import { Word } from '../shared/models/Word';
   styleUrl: './lecture-component.component.css'
 })
 export class LectureComponentComponent {
-  constructor(){}
+  constructor(private wordService:WordService){}
 
   @Input() textPage: string;
   @Input() WordsInput:Word[];
+  wordsNoDuplicated : string[];
 
   @Output() changePageFromChild = new EventEmitter<number>();
 
@@ -41,8 +38,21 @@ export class LectureComponentComponent {
     this.changePageFromChild.emit(this.page)
   }
 
-  lookForWord(word:string){
-    this.SearchWordFromChild.emit(word);
-    console.log("Se envio la palabra: "+word);
+  lookForWordFromWebDictionary(word:string){
+    const cleanWord = formatWord(word)
+    this.SearchWordFromChild.emit(cleanWord);
+    console.log("Se envio la palabra: "+cleanWord);
+  }
+
+  getWordByWord(word:string){
+    this.wordService.getWordByWord(word).subscribe({
+      next:(word)=>{
+        console.log("Se recibio el objeto",word);
+      }
+    })
+  }
+
+  removeWordDuplicates(word:string){
+    //removeDuplicateWord()
   }
 }

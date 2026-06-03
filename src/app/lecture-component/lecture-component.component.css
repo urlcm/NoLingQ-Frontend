@@ -1,5 +1,12 @@
+:host{
+    overflow-y: scroll;
+    height: 50dvh;
+}
+
+
 .word{
-    padding: .2rem;
+    border-radius: .2rem;
+    margin: 1rem 0;
 }
 
 .word:hover{

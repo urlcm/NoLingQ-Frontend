@@ -1,4 +1,4 @@
-<main>
+<main class="lecture-component">
     <section class="container">
         <button (click)="changeBackPage()"> "<" </button>
                 <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
@@ -6,7 +6,7 @@
     </section>
     <section class="words-container">
         @for (word of WordsInput; track $index) {
-        <span class="word unknown" (click)="lookForWord(word.word)">{{word.word}}</span>
+        <span class="word" (click)="lookForWordFromWebDictionary(word.word)">{{word.word}}</span>
         <span class="space"></span>
         }
     </section>

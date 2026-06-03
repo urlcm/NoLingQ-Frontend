@@ -1,7 +1,21 @@
 .lecture-view{
-    
+    height: 50dvh;
 }
 
 .container{
-    
+    display: flex;
+}
+
+.lecture-component{
+    width: 70%;
+    margin-right: 1rem;
+}
+
+app-lecture-component{
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.dictionary-component{
+    width: 30%;
 }
