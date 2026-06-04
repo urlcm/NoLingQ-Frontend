@@ -1,12 +1,19 @@
 <main class="lecture-component">
     <section class="container">
         <button (click)="changeBackPage()"> "<" </button>
-                <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
-                <button (click)="changeNextPage()">">"</button>
+        <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
+        <button (click)="changeNextPage()">">"</button>
+
+        <div class="word-space">
+            <button (click)="moreLineSpacing()">Up</button>
+            <button (click)="lessLineSpacing()">Down</button>
+            <span>{{this.lineSpacing}}</span>
+        </div>
+
     </section>
     <section class="words-container">
         @for (word of WordsInput; track $index) {
-        <span class="word" (click)="lookForWordFromWebDictionary(word.word)">{{word.word}}</span>
+        <span class="word" [ngStyle]="{'margin-bottom': lineSpacing + 'rem'}" (click)="lookForWordFromWebDictionary(word.word)">{{word.word}}</span>
         <span class="space"></span>
         }
     </section>

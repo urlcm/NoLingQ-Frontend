@@ -4,10 +4,11 @@ import { Word } from '../shared/models/Word';
 import { formatWord } from "../shared/utils/formatword.utils";
 import { WordService } from '../features/services/word.services';
 import { removeDuplicateWord } from '../shared/utils/filterwords.utils';
+import { NgStyle } from "@angular/common";
 
 @Component({
   selector: 'app-lecture-component',
-  imports: [FormsModule],
+  imports: [FormsModule, NgStyle],
   templateUrl: './lecture-component.component.html',
   styleUrl: './lecture-component.component.css'
 })
@@ -23,6 +24,7 @@ export class LectureComponentComponent {
   @Output() SearchWordFromChild = new EventEmitter<string>();
   
   page:number = 1;
+  lineSpacing:number = 0.5;
 
   changePage(){
     this.changePageFromChild.emit(this.page);
@@ -54,5 +56,14 @@ export class LectureComponentComponent {
 
   removeWordDuplicates(word:string){
     //removeDuplicateWord()
+  }
+
+  lessLineSpacing(){
+    if(this.lineSpacing > 1)
+    this.lineSpacing -= 0.5;
+  }
+
+  moreLineSpacing(){
+    this.lineSpacing += 0.5;
   }
 }
