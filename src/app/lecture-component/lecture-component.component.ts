@@ -5,6 +5,8 @@ import { formatWord } from "../shared/utils/formatword.utils";
 import { WordService } from '../features/services/word.services';
 import { removeDuplicateWord } from '../shared/utils/filterwords.utils';
 import { NgStyle } from "@angular/common";
+import { ProgressService } from '../features/services/Progress.sevice';
+import { Progress } from '../shared/models/Progress';
 
 @Component({
   selector: 'app-lecture-component',
@@ -13,7 +15,11 @@ import { NgStyle } from "@angular/common";
   styleUrl: './lecture-component.component.css'
 })
 export class LectureComponentComponent {
-  constructor(private wordService:WordService){}
+  constructor(private wordService:WordService,
+    private progressService:ProgressService
+  ){}
+
+  progress:Progress;
 
   @Input() textPage: string;
   @Input() WordsInput:Word[];
@@ -52,6 +58,10 @@ export class LectureComponentComponent {
         console.log("Se recibio el objeto",word);
       }
     })
+  }
+
+  getProgressByLecture(){
+    this.progressService;
   }
 
   removeWordDuplicates(word:string){

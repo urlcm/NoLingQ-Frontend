@@ -12,9 +12,10 @@
 
     </section>
     <section class="words-container">
-        @for (word of WordsInput; track $index) {
-        <span class="word" [ngStyle]="{'margin-bottom': lineSpacing + 'rem'}" (click)="lookForWordFromWebDictionary(word.word)">{{word.word}}</span>
-        <span class="space"></span>
+        @for (word of WordsInput; track $index) 
+        {
+            <span class="word" [ngStyle]="{'margin-bottom': lineSpacing + 'rem'}" (click)="lookForWordFromWebDictionary(word.word)">{{word.word}}</span>
+            <span class="space"></span>
         }
     </section>
 </main>
