@@ -1,21 +1,31 @@
 <main class="lecture-component">
     <section class="container">
-        <button (click)="changeBackPage()"> "<" </button>
-        <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
-        <button (click)="changeNextPage()">">"</button>
+
+        <div class="container-page">
+            <button (click)="changeBackPage()"> "<" </button>
+            <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
+            <button (click)="changeNextPage()">">"</button>
+        </div>
 
         <div class="word-space">
             <button (click)="moreLineSpacing()">Up</button>
             <button (click)="lessLineSpacing()">Down</button>
-            <span>{{this.lineSpacing}}</span>
+            <span>Line spacing: {{this.lineSpacing}}</span>
+        </div>
+
+        <div class="change-font">
+            <button (click)="upSizeFont()">Up</button>
+            <button (click)="downSizeFont()">Down</button>
+            <span>Font size: {{this.fontSize}}</span>
         </div>
 
     </section>
     <section class="words-container">
-        @for (word of WordsInput; track $index) 
+        @for (word of WordsInput; track $index)
         {
-            <span class="word" [ngStyle]="{'margin-bottom': lineSpacing + 'rem'}" (click)="lookForWordFromWebDictionary(word.word)">{{word.word}}</span>
-            <span class="space"></span>
+        <span class="word" [ngStyle]="{'margin-bottom': this.lineSpacing + 'rem', 'font-size': this.fontSize + 'rem'}"
+            (click)="lookForWordFromWebDictionary(word.word)">{{word.word}}</span>
+        <span class="space"></span>
         }
     </section>
 </main>

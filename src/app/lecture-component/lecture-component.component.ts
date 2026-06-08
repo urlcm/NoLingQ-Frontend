@@ -30,6 +30,7 @@ export class LectureComponentComponent implements OnInit{
   
   page:number ;
   lineSpacing:number = 0.5;
+  fontSize:number = 2;
 
   constructor(
     private wordService:WordService,
@@ -142,5 +143,13 @@ export class LectureComponentComponent implements OnInit{
     this.lineSpacing += 0.5;
   }
 
+  downSizeFont(){
+    if(this.fontSize > 1)
+    this.fontSize -= 0.5;
+  }
+
+  upSizeFont(){
+    this.fontSize += 0.5;
+  }
 
 }
