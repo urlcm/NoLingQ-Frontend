@@ -7,6 +7,8 @@ import { removeDuplicateWord } from '../shared/utils/filterwords.utils';
 import { NgStyle } from "@angular/common";
 import { ProgressService } from '../features/services/Progress.sevice';
 import { Progress } from '../shared/models/Progress';
+import { Lecture } from '../shared/models/Lecture';
+import { LectureState } from '../shared/state/LectureState.service';
 
 @Component({
   selector: 'app-lecture-component',
@@ -14,12 +16,9 @@ import { Progress } from '../shared/models/Progress';
   templateUrl: './lecture-component.component.html',
   styleUrl: './lecture-component.component.css'
 })
-export class LectureComponentComponent {
-  constructor(private wordService:WordService,
-    private progressService:ProgressService
-  ){}
-
-  progress:Progress;
+export class LectureComponentComponent implements OnInit{
+  private progress:Progress;
+  private lecture:Lecture;
 
   @Input() textPage: string;
   @Input() WordsInput:Word[];
@@ -29,21 +28,63 @@ export class LectureComponentComponent {
 
   @Output() SearchWordFromChild = new EventEmitter<string>();
   
-  page:number = 1;
+  page:number ;
   lineSpacing:number = 0.5;
 
+  constructor(
+    private wordService:WordService,
+    private progressService:ProgressService,
+    private lectureStateService:LectureState
+  ){}
+
+  ngOnInit(){
+    this.lectureStateService.currentLecture$.subscribe(
+      {
+        next: (data) => {
+          this.lecture = data
+          console.info("El objeto traido es: ",this.lecture)
+          this.getProgressByLecture();
+        },
+        error: (error:any) => {
+          console.error("Error con objeto lecture",error)
+        }
+      }
+    );
+  }
+
+
   changePage(){
+    console.log("Se cambio la pagina a "+this.page)
     this.changePageFromChild.emit(this.page);
   }
 
   changeBackPage(){
-    this.page--;
-    this.changePageFromChild.emit(this.page)
+    if(this.progress.CurrentPage > 0){
+      this.page--;
+      this.changePageFromChild.emit(this.page)
+      this.setPage();
+      this.saveProgress();
+    }
   }
 
   changeNextPage(){
     this.page++;
     this.changePageFromChild.emit(this.page)
+    this.setPage()
+    this.saveProgress();
+  }
+
+  setPage(){
+    console.log("Dentro de setPage, valor inicializado de page "+this.page);
+    console.log("Valor de CurrentPage ", this.progress.CurrentPage)
+    if(this.page === undefined){
+      this.page = this.progress.CurrentPage;
+      console.log("Pagina al iniciar la pagina"+this.page)
+    }
+    else{
+      this.progress.CurrentPage = this.page;
+      console.log("Pagina al iniciar la pagina en else"+this.page)
+    }
   }
 
   lookForWordFromWebDictionary(word:string){
@@ -61,7 +102,31 @@ export class LectureComponentComponent {
   }
 
   getProgressByLecture(){
-    this.progressService;
+    this.progressService.getProgressByLecture(this.lecture.idLecture).subscribe(
+      {
+        next: (progressObject)=>{
+          this.progress = progressObject;
+          //console.info("Objeto traido de la base de datos",this.progress);
+          this.setPage();
+          this.changePage();
+        },
+        error: (error:any)=>{
+          console.error("Error con objeto progress",error);
+        }
+      }
+    );
+  }
+
+  saveProgress(){
+    this.progressService.saveProgress(this.progress).subscribe({
+      next: (progressParam)=>{
+        this.progress = progressParam;
+        console.log("Objeto actualizado",progressParam);
+      },
+      error:(error:any)=>{
+        console.error("Error al momento de la actualización",error);
+      }
+    });
   }
 
   removeWordDuplicates(word:string){
@@ -76,4 +141,6 @@ export class LectureComponentComponent {
   moreLineSpacing(){
     this.lineSpacing += 0.5;
   }
+
+
 }

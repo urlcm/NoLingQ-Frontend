@@ -33,7 +33,7 @@ export class LectureViewComponent implements OnInit {
   progress: Progress;
   sourceLecture: SourceLecture;
   @Output() textOutput: string = "";
-  page: number = 15;
+  page: number;
   lecture:Lecture = new Lecture;
   @Output() Words:Word[] = [];
   @Output() receiveWordFromChild: string;
@@ -44,7 +44,7 @@ export class LectureViewComponent implements OnInit {
       {
         next: (data) => {this.lecture = data
           //console.info("El objeto traido es: ",this.lecture)
-          this.getText();
+          //this.getText();
         },
       }
     );
