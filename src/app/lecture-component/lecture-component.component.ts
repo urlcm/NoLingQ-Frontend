@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { Word } from '../shared/models/Word';
 import { formatWord } from "../shared/utils/formatword.utils";
 import { WordService } from '../features/services/word.services';
-import { removeDuplicateWord } from '../shared/utils/filterwords.utils';
 import { NgStyle } from "@angular/common";
 import { ProgressService } from '../features/services/Progress.sevice';
 import { Progress } from '../shared/models/Progress';
@@ -22,7 +21,8 @@ export class LectureComponentComponent implements OnInit{
 
   @Input() textPage: string;
   @Input() WordsInput:Word[];
-  wordsNoDuplicated : string[];
+  @Input() wordsMapNoDuplicatedChild : Map<string,Word> = new Map<string,Word>();
+
 
   @Output() changePageFromChild = new EventEmitter<number>();
 
@@ -43,8 +43,9 @@ export class LectureComponentComponent implements OnInit{
       {
         next: (data) => {
           this.lecture = data
-          console.info("El objeto traido es: ",this.lecture)
+          //console.info("El objeto traido es: ",this.lecture)
           this.getProgressByLecture();
+          //this.noDuplicateWords();
         },
         error: (error:any) => {
           console.error("Error con objeto lecture",error)
@@ -76,15 +77,15 @@ export class LectureComponentComponent implements OnInit{
   }
 
   setPage(){
-    console.log("Dentro de setPage, valor inicializado de page "+this.page);
-    console.log("Valor de CurrentPage ", this.progress.CurrentPage)
+    //console.log("Dentro de setPage, valor inicializado de page "+this.page);
+    //console.log("Valor de CurrentPage ", this.progress.CurrentPage)
     if(this.page === undefined){
       this.page = this.progress.CurrentPage;
-      console.log("Pagina al iniciar la pagina"+this.page)
+      //console.log("Pagina al iniciar la pagina"+this.page)
     }
     else{
       this.progress.CurrentPage = this.page;
-      console.log("Pagina al iniciar la pagina en else"+this.page)
+      //console.log("Pagina al iniciar la pagina en else"+this.page)
     }
   }
 
@@ -150,6 +151,12 @@ export class LectureComponentComponent implements OnInit{
 
   upSizeFont(){
     this.fontSize += 0.5;
+  }
+
+  changeWordsMapNoDuplicatedChild(wordsMap: Map<string, Word>){
+    this.wordsMapNoDuplicatedChild = wordsMap;
+    console.info("Se activa metodo desde padre")
+    console.log("Cantidad de palabras sin repetir: "+ this.wordsMapNoDuplicatedChild.size);
   }
 
 }

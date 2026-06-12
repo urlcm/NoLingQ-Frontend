@@ -12,6 +12,7 @@ import { LectureState } from '../shared/state/LectureState.service';
 import { Lecture } from '../shared/models/Lecture';
 import { Word } from '../shared/models/Word';
 import { splitWord, WordToArray } from '../shared/utils/word.utils';
+import { removeDuplicatedWord } from '../shared/utils/filterwords.utils';
 
 @Component({
   selector: 'app-lecture-view',
@@ -28,15 +29,18 @@ export class LectureViewComponent implements OnInit {
     private lectureStateService:LectureState
   ) { }
 
-
+  @Output() textOutput: string = "";
+  @Output() Words:Word[] = [];
+  @Output() receiveWordFromChild: string;
+  @Output() wordsNoDuplicatedMapOutPut : Map<string,Word> = new Map<string,Word>();
+  @ViewChild(LectureComponentComponent) LectureComponentChild!: LectureComponentComponent;
+  
   idLecture: number;
   progress: Progress;
   sourceLecture: SourceLecture;
-  @Output() textOutput: string = "";
   page: number;
   lecture:Lecture = new Lecture;
-  @Output() Words:Word[] = [];
-  @Output() receiveWordFromChild: string;
+
 
   ngOnInit(): void {
     this.idLecture = +this.route.snapshot.paramMap.get("id");
@@ -58,6 +62,8 @@ export class LectureViewComponent implements OnInit {
           this.textOutput = textData
           //console.info("Texto traido",textData)
           this.splitWordFromText();
+          this.wordsNoDuplicatedMapOutPut = removeDuplicatedWord(this.Words);
+          this.LectureComponentChild.changeWordsMapNoDuplicatedChild(this.wordsNoDuplicatedMapOutPut);
         },
         error: (error) => console.error("Se presento el siguiente error en getText ",error)
       }

@@ -19,7 +19,7 @@ export class DictionaryComponent implements OnInit {
   safeUrl: SafeResourceUrl;
   @Input() set trigger(value:any){
     this.sanitizeUrl();
-    console.log("TRIGER",value);
+    console.log("TRIGGER",value);
     console.log("Nueva url", this.safeUrl)
   }
 
