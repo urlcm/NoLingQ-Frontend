@@ -8,6 +8,7 @@ import { ProgressService } from '../features/services/Progress.sevice';
 import { Progress } from '../shared/models/Progress';
 import { Lecture } from '../shared/models/Lecture';
 import { LectureState } from '../shared/state/LectureState.service';
+import { Difficulty, DifficultyLevel } from '../shared/models/Difficulty';
 
 @Component({
   selector: 'app-lecture-component',
@@ -99,6 +100,10 @@ export class LectureComponentComponent implements OnInit{
     this.wordService.getWordByWord(word).subscribe({
       next:(word)=>{
         console.log("Se recibio el objeto",word);
+        this.wordsMapNoDuplicatedChild.set(word.word,word);
+      },
+      error:(err :any)=>{
+        console.error("Ocurrió un error al buscar la palabra",err);
       }
     })
   }
@@ -154,9 +159,27 @@ export class LectureComponentComponent implements OnInit{
   }
 
   changeWordsMapNoDuplicatedChild(wordsMap: Map<string, Word>){
-    this.wordsMapNoDuplicatedChild = wordsMap;
+    this.findWord(wordsMap);
+
     console.info("Se activa metodo desde padre")
     console.log("Cantidad de palabras sin repetir: "+ this.wordsMapNoDuplicatedChild.size);
   }
 
+  findWord(wordsMap: Map<string, Word>){
+    wordsMap.forEach(word => {
+      if(!this.wordsMapNoDuplicatedChild.has(word.word)){
+        this.wordService.getWordByWord(word.word)
+      }
+    });
+  }
+
+  getWordClass(wordText: string): string {
+    const word = this.wordsMapNoDuplicatedChild.get(wordText);
+    
+    if (!word || !word.difficulty?.description) {
+        return DifficultyLevel.NEW;
+    }
+    
+    return word.difficulty.description;
+  }
 }

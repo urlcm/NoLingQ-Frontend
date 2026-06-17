@@ -3,8 +3,8 @@
 
         <div class="container-page">
             <button (click)="changeBackPage()"> "<" </button>
-            <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
-            <button (click)="changeNextPage()">">"</button>
+                    <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
+                    <button (click)="changeNextPage()">">"</button>
         </div>
 
         <div class="word-space">
@@ -18,14 +18,17 @@
             <button (click)="downSizeFont()">Down</button>
             <span>Font size: {{this.fontSize}}</span>
         </div>
-        
+
     </section>
     <section class="words-container">
         @for (word of WordsInput; track $index)
         {
-        <span class="word" [ngStyle]="{'margin-bottom': this.lineSpacing + 'rem', 'font-size': this.fontSize + 'rem'}"
-            (click)="lookForWordFromWebDictionary(word.word)">{{word.word}}</span>
-        <span class="space"></span>
+            @if(this.wordsMapNoDuplicatedChild.has(word.word)){
+                <span class="word {{getWordClass(word.word)}}"
+                [ngStyle]="{'margin-bottom': this.lineSpacing + 'rem', 'font-size': this.fontSize + 'rem'}"
+                (click)="lookForWordFromWebDictionary(word.word)">{{word.word}}</span>
+                <span class="space"></span>
+            }
         }
     </section>
 </main>
