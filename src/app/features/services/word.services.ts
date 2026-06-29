@@ -13,6 +13,7 @@ export class WordService{
     private get_url_by_word = "by-word/";
     private get_url_by_id = "by-id/"
     private save = "save"
+    private update = "update"
 
     getWordByWord(word:string):Observable<Word>{
         return this.httpClient.get<Word>(this.main_url+this.get_url_by_word+word);
@@ -24,5 +25,9 @@ export class WordService{
 
     saveWord(word:Word):Observable<Word>{
         return this.httpClient.post<Word>(this.main_url+this.save,word);
+    }
+
+    updateWord(word:Word):Observable<Word>{
+        return this.httpClient.put<Word>(this.main_url+this.update,word);
     }
 }

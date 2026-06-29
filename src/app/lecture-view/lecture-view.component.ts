@@ -33,6 +33,7 @@ export class LectureViewComponent implements OnInit {
   @Output() Words:Word[] = [];
   @Output() receiveWordFromChild: string;
   @Output() wordsNoDuplicatedMapOutPut : Map<string,Word> = new Map<string,Word>();
+  @Output() wordChild: Word = new Word();
   @ViewChild(LectureComponentComponent) LectureComponentChild!: LectureComponentComponent;
   
   idLecture: number;
@@ -96,6 +97,11 @@ export class LectureViewComponent implements OnInit {
   setWordToOutput(word:string){
     this.receiveWordFromChild = word;
     console.info("Llego la palabra: "+this.receiveWordFromChild);
+  }
+
+  setWordObject(word:Word){
+    this.wordChild = word;
+    console.info("Se almaceno el elemento Word",this.LectureComponentChild);
   }
 
 }

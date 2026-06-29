@@ -23,7 +23,7 @@
     <section class="words-container">
         @for (word of WordsInput; track $index)
         {
-            @if(this.wordsMapNoDuplicatedChild.has(word.word)){
+            @if(this.wordsMapNoDuplicatedChild.has(word.word) ){
                 <span class="word {{getWordClass(word.word)}}"
                 [ngStyle]="{'margin-bottom': this.lineSpacing + 'rem', 'font-size': this.fontSize + 'rem'}"
                 (click)="lookForWordFromWebDictionary(word.word)">{{word.word}}</span>

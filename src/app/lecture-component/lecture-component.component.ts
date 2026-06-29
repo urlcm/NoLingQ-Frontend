@@ -9,6 +9,8 @@ import { Progress } from '../shared/models/Progress';
 import { Lecture } from '../shared/models/Lecture';
 import { LectureState } from '../shared/state/LectureState.service';
 import { Difficulty, DifficultyLevel } from '../shared/models/Difficulty';
+import { searchWord } from '../shared/utils/search.utils';
+import { Conditional } from '@angular/compiler';
 
 @Component({
   selector: 'app-lecture-component',
@@ -23,11 +25,12 @@ export class LectureComponentComponent implements OnInit{
   @Input() textPage: string;
   @Input() WordsInput:Word[];
   @Input() wordsMapNoDuplicatedChild : Map<string,Word> = new Map<string,Word>();
+  @Input() word:Word = new Word();
 
 
   @Output() changePageFromChild = new EventEmitter<number>();
-
   @Output() SearchWordFromChild = new EventEmitter<string>();
+  @Output() sendWordFromChild = new EventEmitter<Word>();
   
   page:number ;
   lineSpacing:number = 0.5;
@@ -94,16 +97,26 @@ export class LectureComponentComponent implements OnInit{
     const cleanWord = formatWord(word)
     this.SearchWordFromChild.emit(cleanWord);
     console.log("Se envio la palabra: "+cleanWord);
+    this.sendToFather(cleanWord);
+  }
+
+  sendToFather(cleanWord:string){
+    console.log("Se activa el metodo sendTofather");
+    const wordObject = searchWord(cleanWord,this.wordsMapNoDuplicatedChild);
+    console.log("WordObject",wordObject);
+    this.sendWordFromChild.emit(wordObject);
   }
 
   getWordByWord(word:string){
     this.wordService.getWordByWord(word).subscribe({
       next:(word)=>{
-        console.log("Se recibio el objeto",word);
-        this.wordsMapNoDuplicatedChild.set(word.word,word);
+        if(word != null){
+            this.wordsMapNoDuplicatedChild.set(word.word,word);
+            console.log("Se recibio el objeto",word);
+        }
       },
       error:(err :any)=>{
-        console.error("Ocurrió un error al buscar la palabra",err);
+        console.error("Ocurrió un error al buscar la palabra: "+word,err);
       }
     })
   }
@@ -168,15 +181,17 @@ export class LectureComponentComponent implements OnInit{
   findWord(wordsMap: Map<string, Word>){
     wordsMap.forEach(word => {
       if(!this.wordsMapNoDuplicatedChild.has(word.word)){
-        this.wordService.getWordByWord(word.word)
+        this.getWordByWord(word.word);
       }
     });
   }
 
   getWordClass(wordText: string): string {
-    const word = this.wordsMapNoDuplicatedChild.get(wordText);
+    const word = this.wordsMapNoDuplicatedChild.get(formatWord(wordText));
     
     if (!word || !word.difficulty?.description) {
+      console.log("word debe tener formato limpio",word);
+      console.log("su formato limpio es: "+formatWord(wordText))
         return DifficultyLevel.NEW;
     }
     

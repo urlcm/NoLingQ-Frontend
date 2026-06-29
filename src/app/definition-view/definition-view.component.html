@@ -1,17 +1,17 @@
 <main>
     <form>
         <div class="container">
-            <input type="text" placeholder="Word">
-            <input type="text" placeholder="">
-            <textarea placeholder="Translation"></textarea>
-        </div>
-        <div class="selection-difficulty">
-            <button class="rank">1</button>
-            <button class="rank">2</button>
-            <button class="rank">3</button>
-            <button class="rank">4</button>
-            <button class="rank">5</button>
-            <button class="rank">Ignore</button>
+            <input type="text" placeholder="Word" [(ngModel)]="word.word" name="word">
+            <textarea placeholder="Translation"  [(ngModel)]="word.definition" name="definition"></textarea>
         </div>
     </form>
+    <div class="selection-difficulty">
+        <button class="rank" (click)="changeStatus(2)">1</button>
+        <button class="rank" (click)="changeStatus(3)">2</button>
+        <button class="rank" (click)="changeStatus(4)">3</button>
+        <button class="rank" (click)="changeStatus(5)">4</button>
+        <button class="rank" (click)="changeStatus(6)">5</button>
+        <button class="rank" (click)="changeStatus(1)">Ignore</button>
+    </div>
+    <button (click)="saveDifficulty()">Save</button>
 </main>

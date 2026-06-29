@@ -2,11 +2,11 @@
     <div class="container">
         <aside class="lecture-component">
             <app-lecture-component [textPage]="textOutput" [WordsInput]="Words" [wordsMapNoDuplicatedChild]="wordsNoDuplicatedMapOutPut"
-                (changePageFromChild)="changePageToFather($event)" (SearchWordFromChild)="setWordToOutput($event)" />
+                (changePageFromChild)="changePageToFather($event)" (SearchWordFromChild)="setWordToOutput($event)" (sendWordFromChild)="setWordObject($event)"/>
         </aside>
         <section class="dictionary-component">
             <app-dictionary [wordInput]="receiveWordFromChild" [trigger]="receiveWordFromChild" />
-            <app-definition-view />
+            <app-definition-view [word]="wordChild"/>
         </section>
     </div>
     <app-lecture-media />

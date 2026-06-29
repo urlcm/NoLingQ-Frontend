@@ -13,7 +13,7 @@ export function createWord(text: string) : Word{
         difficulty: new Difficulty(),
         definition: "",
         image: "",
-        dictionarySource: new DictionarySource()
+        dictionarySource: null
     }
 
 }

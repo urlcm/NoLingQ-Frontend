@@ -5,6 +5,7 @@ export function removeDuplicatedWord(words:Word[]): Map<string,Word>{
 
 
     words.forEach(word => {
+      word.word = word.word.toLowerCase()
       wordsMapNoDuplicated.set(word.word,word);
     });
 

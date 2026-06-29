@@ -32,27 +32,27 @@
     margin: .5rem;
 }
 
-.ignore {
+.IGNORE {
     background-color: none;
 }
 
-.new{
-    background-color: rgb(236, 102, 102);
+.NEW{
+    background-color: rgb(110, 30, 30);
 }
 
-.seen{
-    background-color: rgb(252, 144, 42);
+.SEEN{
+    background-color: rgb(120, 55, 10);
 }
 
-.recognized{
-    background-color: rgb(236, 192, 110);
+.RECOGNIZED{
+    background-color: rgb(85, 65, 0);
 }
 
-.very-recognize{
-    background-color: rgb(248, 252, 42);
+.VERY_RECOGNIZED{
+    background-color: rgb(105, 95, 10);
 }
 
-.learned{
-    background-color: rgb(161, 252, 42);
+.LEARNED{
+    background-color: rgb(35, 75, 20);
 }
 
