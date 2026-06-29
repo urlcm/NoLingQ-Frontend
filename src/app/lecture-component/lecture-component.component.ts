@@ -109,10 +109,10 @@ export class LectureComponentComponent implements OnInit{
 
   getWordByWord(word:string){
     this.wordService.getWordByWord(word).subscribe({
-      next:(word)=>{
-        if(word != null){
-            this.wordsMapNoDuplicatedChild.set(word.word,word);
-            console.log("Se recibio el objeto",word);
+      next:(wordfromDb)=>{
+        if(wordfromDb != null){
+            this.wordsMapNoDuplicatedChild.set(wordfromDb.word,wordfromDb);
+            console.log("Se recibio el objeto",wordfromDb);
         }
       },
       error:(err :any)=>{
@@ -173,9 +173,6 @@ export class LectureComponentComponent implements OnInit{
 
   changeWordsMapNoDuplicatedChild(wordsMap: Map<string, Word>){
     this.findWord(wordsMap);
-
-    console.info("Se activa metodo desde padre")
-    console.log("Cantidad de palabras sin repetir: "+ this.wordsMapNoDuplicatedChild.size);
   }
 
   findWord(wordsMap: Map<string, Word>){
@@ -189,12 +186,15 @@ export class LectureComponentComponent implements OnInit{
   getWordClass(wordText: string): string {
     const word = this.wordsMapNoDuplicatedChild.get(formatWord(wordText));
     
-    if (!word || !word.difficulty?.description) {
-      console.log("word debe tener formato limpio",word);
+    if (!word || !word.difficulty?.idDifficulty) {
       console.log("su formato limpio es: "+formatWord(wordText))
         return DifficultyLevel.NEW;
     }
     
     return word.difficulty.description;
+  }
+
+  isHasWord(word: Word): boolean {
+    return true
   }
 }
