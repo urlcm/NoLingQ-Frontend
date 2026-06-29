@@ -187,14 +187,9 @@ export class LectureComponentComponent implements OnInit{
     const word = this.wordsMapNoDuplicatedChild.get(formatWord(wordText));
     
     if (!word || !word.difficulty?.idDifficulty) {
-      console.log("su formato limpio es: "+formatWord(wordText))
         return DifficultyLevel.NEW;
     }
     
     return word.difficulty.description;
-  }
-
-  isHasWord(word: Word): boolean {
-    return true
   }
 }

@@ -3,6 +3,9 @@
         <div class="container">
             <input type="text" placeholder="Word" [(ngModel)]="word.word" name="word">
             <textarea placeholder="Translation"  [(ngModel)]="word.definition" name="definition"></textarea>
+            @if (isThereDifficulty != false) {
+                <p>Selecciona una dificultad</p>
+            }
         </div>
     </form>
     <div class="selection-difficulty">

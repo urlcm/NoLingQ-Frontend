@@ -17,12 +17,15 @@ export class DefinitionViewComponent {
   difficulty: Difficulty = new Difficulty();
 
   @Input() word = new Word;
+  isThereDifficulty: boolean;
 
   saveWord(){
     this.word.difficulty = this.difficulty;
     this.wordService.saveWord(this.word).subscribe({
       next(value) {
-          this.word = value;
+        console.log("este es mi value",value);
+          Object.assign(this.word, value);
+          //this.word.dictionarySource = value.dictionarySource;
           this.difficulty = new Difficulty();
           console.info("Se guardó la palabra nueva: ",this.word);
       },
@@ -36,7 +39,8 @@ export class DefinitionViewComponent {
     this.word.difficulty = this.difficulty;
     this.wordService.updateWord(this.word).subscribe({
       next(value) {
-          this.word = value;
+          console.log("este es mi value desde update",value);
+          Object.assign(this.word, value);
           this.difficulty = new Difficulty();
           console.info("Se actualizó la palabra: "+this.word+" con dificultad: "+this.word.difficulty.idDifficulty);
       },
@@ -52,11 +56,22 @@ export class DefinitionViewComponent {
   }
 
   saveDifficulty(){
-    if(!this.difficulty.idDifficulty){
-      this.saveWord();
+    if (!this.difficulty.idDifficulty) {
+        console.warn("Debes seleccionar una dificultad antes de guardar");
+        this.isThereDifficulty = true;
+        return;
     }
-    else{
-      this.updateWord();
+
+    this.word.difficulty = this.difficulty;
+
+    if (!this.word.idWord || this.word.idWord === -1) {
+        console.log("Entra en saveWord");
+        this.saveWord();
+    } else {
+        console.log("Entra en update");
+        this.updateWord();
     }
+
+    this.isThereDifficulty = false;
   }
 }
