@@ -6,9 +6,9 @@ export function removeDuplicatedWord(words:Word[]): Map<string,Word>{
 
 
     words.forEach(word => {
-      word.word = formatWord(word.word.toLowerCase())
-      if(!wordsMapNoDuplicated.has(word.word))
-        wordsMapNoDuplicated.set(word.word,word);
+      const cleanWord = formatWord(word.word.toLowerCase())
+      if(!wordsMapNoDuplicated.has(cleanWord))
+        wordsMapNoDuplicated.set(cleanWord,word);
     });
 
     console.info("Cantidad de palabras sin duplicar: " + wordsMapNoDuplicated.size);

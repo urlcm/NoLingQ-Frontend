@@ -176,15 +176,16 @@ export class LectureComponentComponent implements OnInit{
   }
 
   findWord(wordsMap: Map<string, Word>){
-    wordsMap.forEach(word => {
-      if(!this.wordsMapNoDuplicatedChild.has(word.word)){
-        this.getWordByWord(word.word);
+    wordsMap.forEach(wordArguem => {
+      const cleanWord = formatWord(wordArguem.word.toLowerCase());
+      if(!this.wordsMapNoDuplicatedChild.has(cleanWord)){
+        this.getWordByWord(cleanWord);
       }
     });
   }
 
   getWordClass(wordText: string): string {
-    const word = this.wordsMapNoDuplicatedChild.get(formatWord(wordText));
+    const word = this.wordsMapNoDuplicatedChild.get(formatWord(wordText.toLowerCase()));
     
     if (!word || !word.difficulty?.idDifficulty) {
         return DifficultyLevel.NEW;
