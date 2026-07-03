@@ -63,6 +63,7 @@ export class DefinitionViewComponent {
     }
 
     this.word.difficulty = this.difficulty;
+    this.word.word = this.word.word.toLowerCase();
 
     if (!this.word.idWord || this.word.idWord === -1) {
         console.log("Entra en saveWord");

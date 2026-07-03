@@ -32,7 +32,7 @@
     margin: .5rem;
 }
 
-.IGNORE {
+.IGNORE, .CHECK {
     background-color: none;
 }
 
