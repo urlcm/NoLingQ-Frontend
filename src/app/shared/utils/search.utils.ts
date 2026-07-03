@@ -7,6 +7,7 @@ export function searchWord(word: string, wordsMapNoDuplicatedChild:Map<string,Wo
     console.log("EL WORD ES NULL? ", newWord);
     if (!newWord) {
         const wordParam = createWord(word);
+        wordsMapNoDuplicatedChild.set(word.toLowerCase(), wordParam);
         console.info("Se crea nuevo objeto")
         return wordParam;
     }

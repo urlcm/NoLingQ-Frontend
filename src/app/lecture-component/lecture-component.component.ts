@@ -149,10 +149,6 @@ export class LectureComponentComponent implements OnInit{
     });
   }
 
-  removeWordDuplicates(word:string){
-    //removeDuplicateWord()
-  }
-
   lessLineSpacing(){
     if(this.lineSpacing > 1)
     this.lineSpacing -= 0.5;

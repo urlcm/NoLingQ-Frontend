@@ -22,14 +22,15 @@ export class DefinitionViewComponent {
   saveWord(){
     this.word.difficulty = this.difficulty;
     this.wordService.saveWord(this.word).subscribe({
-      next(value) {
-        console.log("este es mi value",value);
+      next:(value) => {
+          console.log("1. this.word antes del assign:", this.word);
+          console.log("2. value que llega del backend:", value);
           Object.assign(this.word, value);
-          //this.word.dictionarySource = value.dictionarySource;
           this.difficulty = new Difficulty();
-          console.info("Se guardó la palabra nueva: ",this.word);
+          console.log("3. this.word después del assign:", this.word);
+          console.log("4. difficulty después del assign:", this.word.difficulty);
       },
-      error(error:any) {
+      error: (error:any) => {
         console.error("Se obtuvo el siguiente error al querer ingresar",error);
       }
     })
@@ -38,13 +39,13 @@ export class DefinitionViewComponent {
   updateWord(){
     this.word.difficulty = this.difficulty;
     this.wordService.updateWord(this.word).subscribe({
-      next(value) {
+      next:(value) => {
           console.log("este es mi value desde update",value);
           Object.assign(this.word, value);
           this.difficulty = new Difficulty();
           console.info("Se actualizó la palabra: "+this.word+" con dificultad: "+this.word.difficulty.idDifficulty);
       },
-      error (error:any) {
+      error: (error:any) => {
         console.error("Se obtuvo el siguiente error al querer actualizar: ",error);
       }
     })
@@ -56,14 +57,17 @@ export class DefinitionViewComponent {
   }
 
   saveDifficulty(){
-    if (!this.difficulty.idDifficulty) {
+    /*if (!this.difficulty.idDifficulty) {
         console.warn("Debes seleccionar una dificultad antes de guardar");
         this.isThereDifficulty = true;
         return;
-    }
+    }*/
 
     this.word.difficulty = this.difficulty;
     this.word.word = this.word.word.toLowerCase();
+
+    console.log("idWord antes de decidir:", this.word.idWord); // 👈
+    console.log("idDifficulty:", this.difficulty.idDifficulty); // 👈
 
     if (!this.word.idWord || this.word.idWord === -1) {
         console.log("Entra en saveWord");
