@@ -2,7 +2,7 @@
     <section class="container">
 
         <div class="container-page">
-            <button (click)="changeBackPage()"> "<" </button>
+            <button type="button" (click)="changeBackPage()"> "<" </button>
                     <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
                     <button (click)="changeNextPage()">">"</button>
         </div>

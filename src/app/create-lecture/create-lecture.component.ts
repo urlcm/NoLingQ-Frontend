@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { SlashEncoder } from '../shared/pipes/SlashEnconder';
 import { FormsModule } from '@angular/forms';
+import { LectureService } from '../features/services/Lecture.service';
+//import { createLecture } from '../shared/utils/lecture.utils';
 @Component({
   selector: 'app-create-lecture',
   imports: [FormsModule],
@@ -8,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './create-lecture.component.css'
 })
 export class CreateLectureComponent {
-  constructor() { }
+  constructor(private lectureService:LectureService) { }
 
   name:string = "";
   url_media:string = "";
@@ -17,5 +19,10 @@ export class CreateLectureComponent {
 
   EncoderData(path:string){
    this.url_text = SlashEncoder.encode(path);
+  }
+
+  saveLecture(){
+    //const lectureObject = createLecture(this.name,this.url_text);
+    //this.lectureService.SaveLecture(lectureObject).subscribe( );
   }
 }
