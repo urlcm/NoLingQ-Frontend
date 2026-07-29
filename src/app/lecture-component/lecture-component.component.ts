@@ -49,7 +49,6 @@ export class LectureComponentComponent implements OnInit{
           this.lecture = data
           //console.info("El objeto traido es: ",this.lecture)
           this.getProgressByLecture();
-          //this.noDuplicateWords();
         },
         error: (error:any) => {
           console.error("Error con objeto lecture",error)

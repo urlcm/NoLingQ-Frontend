@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AudioService } from '../features/services/AudioService';
+import { LectureState } from '../shared/state/LectureState.service';
+import { Progress } from '../shared/models/Progress';
+import { Subscription } from 'rxjs';
+import { Lecture } from '../shared/models/Lecture';
 
 @Component({
   selector: 'app-lecture-media',
@@ -6,6 +11,13 @@ import { Component } from '@angular/core';
   templateUrl: './lecture-media.component.html',
   styleUrl: './lecture-media.component.css'
 })
-export class LectureMediaComponent {
+export class LectureMediaComponent{
+
+  constructor(private audioService:AudioService,
+  ){}
+
+  playAudio(){
+    this.audioService.play();
+  }
 
 }
