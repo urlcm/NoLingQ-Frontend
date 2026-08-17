@@ -41,7 +41,7 @@
 }
 
 .SEEN{
-    background-color: rgb(120, 55, 10);
+    background-color: rgb(120, 55, 10) !important;
 }
 
 .RECOGNIZED{

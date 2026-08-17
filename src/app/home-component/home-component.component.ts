@@ -20,7 +20,7 @@ export class HomeComponentComponent implements OnInit{
   language: string = "Idioma";
 
   nameLecture: string = "Prueba";
-  languageLecture : string = "prubea";
+  languageLecture : string = "prueba";
 
   newLecture: string = "Nueva lectura"
   textButton: string = "Editar";

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Word } from '../shared/models/Word';
 import { formatWord } from "../shared/utils/formatword.utils";
@@ -31,6 +31,8 @@ export class LectureComponentComponent implements OnInit{
   @Output() changePageFromChild = new EventEmitter<number>();
   @Output() SearchWordFromChild = new EventEmitter<string>();
   @Output() sendWordFromChild = new EventEmitter<Word>();
+
+  @ViewChild('wordsContainer') wordsContainer!: ElementRef;
   
   page:number ;
   lineSpacing:number = 0.5;
@@ -60,12 +62,14 @@ export class LectureComponentComponent implements OnInit{
 
   changePage(){
     console.log("Se cambio la pagina a "+this.page)
+    this.wordsContainer.nativeElement.scrollTop = 0;
     this.changePageFromChild.emit(this.page);
   }
 
   changeBackPage(){
     if(this.progress.CurrentPage > 0){
       this.page--;
+      this.wordsContainer.nativeElement.scrollTop = 0;
       this.changePageFromChild.emit(this.page)
       this.setPage();
       this.saveProgress();
@@ -74,6 +78,7 @@ export class LectureComponentComponent implements OnInit{
 
   changeNextPage(){
     this.page++;
+    this.wordsContainer.nativeElement.scrollTop = 0;
     this.changePageFromChild.emit(this.page)
     this.setPage()
     this.saveProgress();

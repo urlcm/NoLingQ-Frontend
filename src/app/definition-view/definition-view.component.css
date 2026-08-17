@@ -2,3 +2,31 @@
     display: flex;
     flex-direction: column;
 }
+
+.IGNORE, .CHECK {
+    background-color: none;
+}
+
+.NEW{
+    background-color: rgb(110, 30, 30);
+}
+
+.SEEN{
+    background-color: rgb(120, 55, 10) !important;
+}
+
+.RECOGNIZED{
+    background-color: rgb(85, 65, 0);
+}
+
+.VERY_RECOGNIZED{
+    background-color: rgb(105, 95, 10);
+}
+
+.VERY_RECOGNIZED_2{
+    background-color: rgb(70, 85, 15);
+}
+
+.LEARNED{
+    background-color: rgb(35, 75, 20);
+}
