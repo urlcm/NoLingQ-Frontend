@@ -2,9 +2,13 @@
     <form>
         <div class="container">
             <input type="text" placeholder="Word" [(ngModel)]="word.word" name="word">
-            <textarea placeholder="Translation"  [(ngModel)]="word.definition" name="definition"></textarea>
+            <div class="tags-input-container">
+                <div id="tags-wrapper"></div>
+                <input type="text" id="tag-field" placeholder="Type and linking to parent" />
+            </div>
+            <textarea placeholder="Translation" [(ngModel)]="word.definition" name="definition"></textarea>
             @if (isThereDifficulty != false) {
-                <p>Selecciona una dificultad</p>
+            <p>Selecciona una dificultad</p>
             }
         </div>
     </form>
