@@ -1,34 +1,83 @@
-.container{
+.container {
     display: flex;
     flex-direction: column;
 }
 
+.tags-input-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
+    border: 1px solid #cbd5e1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
 
+.tags-input-container:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
 
-.IGNORE, .CHECK {
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f1f5f9;
+  color: #334155;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+}
+
+.tag-close {
+  background: none;
+  border: none;
+  margin-left: 6px;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+#tag-field {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  padding: 4px 0;
+  font-size: 14px;
+  min-width: 60px;
+}
+
+.IGNORE,
+.CHECK {
     background-color: none;
 }
 
-.NEW{
+.NEW {
     background-color: rgb(110, 30, 30);
 }
 
-.SEEN{
+.SEEN {
     background-color: rgb(120, 55, 10);
 }
 
-.RECOGNIZED{
+.RECOGNIZED {
     background-color: rgb(85, 65, 0);
 }
 
-.VERY_RECOGNIZED{
+.VERY_RECOGNIZED {
     background-color: rgb(105, 95, 10);
 }
 
-.VERY_RECOGNIZED_2{
+.VERY_RECOGNIZED_2 {
     background-color: rgb(70, 85, 15);
 }
 
-.LEARNED{
+.LEARNED {
     background-color: rgb(35, 75, 20);
 }

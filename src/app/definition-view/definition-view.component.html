@@ -2,10 +2,20 @@
     <form>
         <div class="container">
             <input type="text" placeholder="Word" [(ngModel)]="word.word" name="word">
+
             <div class="tags-input-container">
-                <div id="tags-wrapper"></div>
-                <input type="text" id="tag-field" placeholder="Type and linking to parent" />
+                @for (tag of tags(); track $index){
+                <span class="tag">
+                    {{ tag }}
+                    <button type="button" class="tag-close" (click)="removeTag($index)">x</button>
+                </span>
+                }
+
+                <input type="text" id="tag-field" [placeholder]="tags().length === 0 ? placeholderText() : ''"
+                    [(ngModel)]="inputValue" (keydown.enter)="addTag($event)" (keydown.comma)="addTag($event)"
+                    (keydown.backspace)="handleBackspace()" />
             </div>
+
             <textarea placeholder="Translation" [(ngModel)]="word.definition" name="definition"></textarea>
             @if (isThereDifficulty != false) {
             <p>Selecciona una dificultad</p>
