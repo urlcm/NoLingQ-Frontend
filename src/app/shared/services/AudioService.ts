@@ -5,7 +5,7 @@ import { LectureState } from "../state/LectureState.service";
 import { Lecture } from "../models/Lecture";
 import { Subscription } from "rxjs";
 import { SlashEncoder } from "../pipes/SlashEnconder";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +15,7 @@ export class AudioService {
     private lecture: Lecture;
     private progress: Progress;
     private url_main = "http://localhost:8081/audio-controller/"
-    private url_getaudio = "get-audio/"
+    private url_getaudio = "get-audio"
 
     constructor(private progressService: ProgressService,
         private lectureStateService: LectureState,
@@ -26,6 +26,7 @@ export class AudioService {
                 console.log("Este es el resultado de lecture", lectureResult);
                 this.lecture = lectureResult;
                 this.findProgressById();
+                this.getAudio();
             },
             error: (error: any) => {
                 console.log("Error al cargar lectureState", error);
@@ -39,36 +40,43 @@ export class AudioService {
     }
 
 
-    play(word: string) {
-        //this.ngOnInit();
+    play() {
         //this.stopPlaying();
-
         console.log("Este es el objeto progress", this.progress);
 
-        if (!this.progress.currentTimeSecs && this.progress.currentTimeSecs != undefined) {
-            this.progress.currentTimeSecs = BigInt("0");
-        }
 
-        this.audioBook.currentTime = Number.parseInt(this.progress.currentTimeSecs.toString());
+            if (this.progress.currentTimeSecs! == null) {
+                this.progress.currentTimeSecs = 0;
+                console.log("Este es el valor de currentTime", this.progress.currentTimeSecs);
+            }
 
-        this.httpClient.get(`${this.url_main + this.url_getaudio}${word}`, { responseType: 'blob' })
+            this.audioBook.play(); 
+
+    }
+
+    getAudio() {
+        const params = new HttpParams()
+        .set('path', this.lecture.sourceMedia.urlSource)
+        this.httpClient.get(`${this.url_main + this.url_getaudio}`, { params 
+            ,responseType: 'blob' })
             .subscribe({
                 next: (blob) => {
                     const url = URL.createObjectURL(blob);
-                    this.audioBook = new Audio(url); // 👈 guardas en la propiedad
-                    this.audioBook.play();
+                    this.audioBook = new Audio(url);
+                    this.audioBook.currentTime = Number(this.progress.currentTimeSecs);
+                    console.log("Este es el audibook",this.audioBook)
                     this.audioBook.onended = () => URL.revokeObjectURL(url);
                 },
                 error: (err) => {
-                    console.error(`Audio no encontrado para: ${word}`, err);
+                    console.error(`Audio no encontrado para: ${this.lecture.sourceMedia.urlSource}`, err);
                 }
             });
     }
 
 
     stopPlaying() {
-        this.progress.currentTimeSecs = BigInt(this.audioBook.currentTime.toString());
         this.audioBook.pause();
+        this.progress.currentTimeSecs = Number(Math.floor(this.audioBook.currentTime));
         this.saveProgress();
     }
 

@@ -17,7 +17,7 @@ export class LectureMediaComponent{
   ){}
 
   playAudio(){
-    this.audioService.play("James_Clear_-_Atomic.Habits");
+    this.audioService.play();
   }
 
   stopAudio(){
