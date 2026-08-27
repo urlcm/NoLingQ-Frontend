@@ -2,9 +2,9 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, signal, Vie
 import { FormsModule } from '@angular/forms';
 import { Word } from '../shared/models/Word';
 import { formatWord } from "../shared/utils/formatword.utils";
-import { WordService } from '../features/services/word.services';
+import { WordService } from '../shared/services/word.services';
 import { NgStyle } from "@angular/common";
-import { ProgressService } from '../features/services/Progress.sevice';
+import { ProgressService } from '../shared/services/Progress.sevice';
 import { Progress } from '../shared/models/Progress';
 import { Lecture } from '../shared/models/Lecture';
 import { LectureState } from '../shared/state/LectureState.service';
@@ -116,7 +116,7 @@ export class LectureComponentComponent implements OnInit{
       next:(wordfromDb)=>{
         if(wordfromDb != null){
             this.wordsMapNoDuplicatedChild.set(wordfromDb.word,wordfromDb);
-            console.log("Se recibio el objeto",wordfromDb);
+            //console.log("Se recibio el objeto",wordfromDb);
         }
       },
       error:(err :any)=>{

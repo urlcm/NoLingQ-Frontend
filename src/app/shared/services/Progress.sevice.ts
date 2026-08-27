@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Progress } from "../../shared/models/Progress";
+import { Progress } from "../models/Progress";
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({

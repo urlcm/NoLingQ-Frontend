@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AudioService } from '../features/services/AudioService';
+import { AudioService } from '../shared/services/AudioService';
 import { LectureState } from '../shared/state/LectureState.service';
 import { Progress } from '../shared/models/Progress';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,11 @@ export class LectureMediaComponent{
   ){}
 
   playAudio(){
-    this.audioService.play();
+    this.audioService.play("James_Clear_-_Atomic.Habits");
   }
+
+  stopAudio(){
+    this.audioService.stopPlaying();
+  } 
 
 }

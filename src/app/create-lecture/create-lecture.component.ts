@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SlashEncoder } from '../shared/pipes/SlashEnconder';
 import { FormsModule } from '@angular/forms';
-import { LectureService } from '../features/services/Lecture.service';
+import { LectureService } from '../shared/services/Lecture.service';
 //import { createLecture } from '../shared/utils/lecture.utils';
 @Component({
   selector: 'app-create-lecture',

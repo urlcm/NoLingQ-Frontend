@@ -3,9 +3,9 @@ import { LectureComponentComponent } from "../lecture-component/lecture-componen
 import { LectureMediaComponent } from "../lecture-media/lecture-media.component";
 import { DictionaryComponent } from "../dictionary/dictionary.component";
 import { DefinitionViewComponent } from "../definition-view/definition-view.component";
-import { TextService } from '../features/services/TextService';
+import { TextService } from '../shared/services/TextService';
 import { ActivatedRoute } from '@angular/router';
-import { ProgressService } from '../features/services/Progress.sevice';
+import { ProgressService } from '../shared/services/Progress.sevice';
 import { Progress } from '../shared/models/Progress';
 import { SourceLecture } from '../shared/models/SourceLecture';
 import { LectureState } from '../shared/state/LectureState.service';

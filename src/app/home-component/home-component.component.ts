@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationService} from '../features/services/Navigation.services';
-import { LectureService } from '../features/services/Lecture.service';
+import { NavigationService} from '../shared/services/Navigation.services';
+import { LectureService } from '../shared/services/Lecture.service';
 import { NgForOf } from "@angular/common";
 import { Lecture } from '../shared/models/Lecture';
 import { LectureState } from '../shared/state/LectureState.service';

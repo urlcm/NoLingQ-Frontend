@@ -1,7 +1,7 @@
 import { Component, input, Input, signal } from '@angular/core';
 import { Word } from '../shared/models/Word';
 import { FormsModule } from '@angular/forms';
-import { WordService } from '../features/services/word.services';
+import { WordService } from '../shared/services/word.services';
 import { Difficulty, DifficultyLevel } from '../shared/models/Difficulty';
 
 @Component({

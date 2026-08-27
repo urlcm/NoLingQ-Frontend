@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Lecture } from "../../shared/models/Lecture";
-import { SourceLecture } from "../../shared/models/SourceLecture";
+import { Lecture } from "../models/Lecture";
+import { SourceLecture } from "../models/SourceLecture";
 
 @Injectable({
   providedIn: 'root'
