@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { NavigationService } from '../shared/services/Navigation.services';
+import { AudioService } from '../shared/services/AudioService';
 
 @Component({
   selector: 'app-navbar',
@@ -10,9 +11,16 @@ import { NavigationService } from '../shared/services/Navigation.services';
 })
 export class NavbarComponent {
 
-  constructor(private navigationService:NavigationService) { }
+  constructor(private navigationService:NavigationService,
+    private audioService:AudioService  
+  ) { }
 
   goToHome(){
+    this.stopPlay();  
     this.navigationService.goToHome();
+  }
+
+  stopPlay(){
+    this.audioService.stopPlaying();
   }
 }
