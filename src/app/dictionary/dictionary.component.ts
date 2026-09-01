@@ -13,7 +13,7 @@ export class DictionaryComponent implements OnInit {
     this.wordInput = "###"
     this.sanitizeUrl();
   }
-  url_dictionary: string = "https://www.dict.com/ingles-espanol/";
+  url_dictionary: string = "http://dict.com/ingles-espanol/";
   //word: string = "###";
   @Input() wordInput: string = "###";
   safeUrl: SafeResourceUrl;

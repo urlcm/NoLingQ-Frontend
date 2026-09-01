@@ -11,16 +11,18 @@ import { AudioService } from '../shared/services/AudioService';
 })
 export class NavbarComponent {
 
-  constructor(private navigationService:NavigationService,
-    private audioService:AudioService  
+  constructor(private navigationService: NavigationService,
+    private audioService: AudioService
   ) { }
 
-  goToHome(){
-    this.stopPlay();  
+  goToHome() {
+    //if (this.audioService.isThereAudiobook)
+      //this.stopPlay();
+
     this.navigationService.goToHome();
   }
 
-  stopPlay(){
+  stopPlay() {
     this.audioService.stopPlaying();
   }
 }

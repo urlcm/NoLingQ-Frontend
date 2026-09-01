@@ -1,5 +1,8 @@
 export class SourceLecture {
-    constructor() {}
     IdSourceLecture:number;
     urlSource:string;
+
+    constructor(url?:string) {
+        this.urlSource = url;
+    }
 }

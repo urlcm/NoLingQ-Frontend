@@ -14,8 +14,8 @@ export class SourceLectureService{
   url_save:string = "/save";
   url_getById:string = "/get-lecture/";
 
-  saveSourceLecture(lecture: Lecture):Observable<number> {
-    return this.http.post<number>(this.url_main + this.url_save, lecture);
+  saveSourceLecture(sourcelecture: SourceLecture):Observable<number> {
+    return this.http.post<number>(this.url_main + this.url_save, sourcelecture);
   }
 
   getSourceLectureById(id : number):Observable<SourceLecture>{

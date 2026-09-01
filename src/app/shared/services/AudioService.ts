@@ -103,5 +103,10 @@ export class AudioService {
         })
     }
 
+    isThereAudiobook():boolean{
+        if(!this.audioBook)
+            return true;
 
+        return false;
+    }
 }
