@@ -38,6 +38,9 @@ export class CreateLectureComponent {
     this.lectureService.SaveLecture(lecture).subscribe({
       next:(idLecture)=>{
         lecture.idLecture = idLecture;
+        this.saveProgress(lecture);
+        this.saveSourceLecture();
+        this.saveSourceMedia();
       }
     });
   }
