@@ -9,6 +9,7 @@ import { Lecture } from '../shared/models/Lecture';
 import { SourceLecture } from '../shared/models/SourceLecture';
 import { SourceMedia } from '../shared/models/SourceMedia';
 import { Progress } from '../shared/models/Progress';
+import { NavigationService } from '../shared/services/Navigation.services';
 //import { createLecture } from '../shared/utils/lecture.utils';
 @Component({
   selector: 'app-create-lecture',
@@ -21,7 +22,8 @@ export class CreateLectureComponent {
     private lectureService:LectureService,
     private sourceLectureService:SourceLectureService,
     private progressService:ProgressService,
-    private sourceMediaService:SourceMediaService
+    private sourceMediaService:SourceMediaService,
+    private navigationService:NavigationService
   ) { }
 
   name:string = "";
@@ -29,44 +31,51 @@ export class CreateLectureComponent {
   url_dictionary:string = "";
   url_text:string = "";
 
-  EncoderData(path:string){
-   this.url_text = SlashEncoder.encode(path);
+  EncoderData(path:string):string{
+   return SlashEncoder.encode(path);
   }
 
-  saveLecture(){
-    const lecture = new Lecture(this.name);
+  saveLecture(lecture:Lecture){
     this.lectureService.SaveLecture(lecture).subscribe({
       next:(idLecture)=>{
         lecture.idLecture = idLecture;
         this.saveProgress(lecture);
-        this.saveSourceLecture();
-        this.saveSourceMedia();
       }
     });
   }
 
   saveSourceLecture() {
     const sourceLecture = new SourceLecture;
-    sourceLecture.urlSource = this.url_text;
+    sourceLecture.urlSource = this.EncoderData(this.url_text);
+
+    let lectureParam = new Lecture;
+    lectureParam.name = this.name;
+
     this.sourceLectureService.saveSourceLecture(sourceLecture).subscribe({
       next:(SourceLectureObject)=>{
-        sourceLecture.IdSourceLecture = SourceLectureObject
+        sourceLecture.IdSourceLecture = SourceLectureObject;
+        lectureParam.sourceLecture = sourceLecture;
+        lectureParam.sourceMedia = this.saveSourceMedia();
+        this.saveLecture(lectureParam);
+        this.navigationService.goToHome();
       }
     })
   }
 
-  saveSourceMedia(){
+  saveSourceMedia() : SourceMedia{
     const sourceMedia = new SourceMedia();
-    sourceMedia.urlSource = this.url_media;
+    sourceMedia.urlSource = this.EncoderData(this.url_media);
     sourceMedia.type = 1;
     this.sourceMediaService.saveSourceMedia(sourceMedia).subscribe({
       next:(SourceMediaObject)=>{
-        sourceMedia.idSourceMedia = SourceMediaObject.idSourceMedia;
+        return SourceMediaObject;
       }
     })
+
+    return new SourceMedia;
   }
 
-  saveProgress(lecture:Lecture) {
+  saveProgress(lecture:Lecture) : Progress{
     let progress = new Progress();
     progress.CurrentPage = 0;
     progress.lecture = lecture;
@@ -74,8 +83,9 @@ export class CreateLectureComponent {
 
     this.progressService.saveProgress(progress).subscribe({
       next:(progressObject) =>{
-        progress = progressObject;
+        return progressObject;
       }
     })
+    return new Progress;
   }
 }
