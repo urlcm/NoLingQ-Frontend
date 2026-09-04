@@ -35,6 +35,10 @@ export class CreateLectureComponent {
    return SlashEncoder.encode(path);
   }
 
+  saveAll(){
+    
+  }
+
   saveLecture(lecture:Lecture){
     this.lectureService.SaveLecture(lecture).subscribe({
       next:(idLecture)=>{
@@ -45,7 +49,7 @@ export class CreateLectureComponent {
   }
 
   saveSourceLecture() {
-    const sourceLecture = new SourceLecture;
+    let sourceLecture = new SourceLecture;
     sourceLecture.urlSource = this.EncoderData(this.url_text);
 
     let lectureParam = new Lecture;
