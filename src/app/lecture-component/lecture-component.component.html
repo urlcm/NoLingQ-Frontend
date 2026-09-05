@@ -2,20 +2,20 @@
     <section class="container">
 
         <div class="container-page">
-            <button type="button" (click)="changeBackPage()"> "<" </button>
+            <button type="button" (click)="changeBackPage()">app<i class="fa-solid fa-arrow-left"></i></button>
                     <input type="number" name="page" [(ngModel)]='page' (change)="changePage()">
-                    <button (click)="changeNextPage()">">"</button>
+                    <button (click)="changeNextPage()"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
 
         <div class="word-space">
-            <button (click)="moreLineSpacing()">Up</button>
-            <button (click)="lessLineSpacing()">Down</button>
+            <button (click)="moreLineSpacing()"><i class="fa-solid fa-up-long"></i></button>
+            <button (click)="lessLineSpacing()"><i class="fa-solid fa-down-long"></i></button>
             <span>Line spacing: {{this.lineSpacing}}</span>
         </div>
 
         <div class="change-font">
-            <button (click)="upSizeFont()">Up</button>
-            <button (click)="downSizeFont()">Down</button>
+            <button (click)="upSizeFont()"><i class="fa-solid fa-up-long"></i></button>
+            <button (click)="downSizeFont()"><i class="fa-solid fa-up-long"></i></button>
             <span>Font size: {{this.fontSize}}</span>
         </div>
 
