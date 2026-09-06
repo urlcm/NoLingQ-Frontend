@@ -22,6 +22,14 @@ export class LectureMediaComponent{
 
   stopAudio(){
     this.audioService.stopPlaying();
-  } 
+  }
+  
+  backwardAudio(){
+    this.audioService.backAudio(5);
+  }
+
+  forwardAudio(){
+    this.audioService.forwardAudio(5);
+  }
 
 }

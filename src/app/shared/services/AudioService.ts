@@ -109,4 +109,12 @@ export class AudioService {
 
         return false;
     }
+
+    backAudio(time:number){
+        this.audioBook.currentTime -= time;
+    }
+
+    forwardAudio(time:number){
+        this.audioBook.currentTime += time;
+    }
 }
