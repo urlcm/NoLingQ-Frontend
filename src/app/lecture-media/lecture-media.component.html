@@ -1,12 +1,14 @@
 <main class="media">
-    <button type="button" (click)="backwardAudio()">
+    <button type="button" id="backward" (click)="backwardAudio()">
         <i class="fa-solid fa-backward"></i>
     </button>
-    <button type="button" (click)="playAudio()"><i class="fa-solid fa-play"></i></button>
-    <button type="button" (click)="stopAudio()">
+    <button type="button" id="play" (click)="playAudio()">
+        <i class="fa-solid fa-play"></i>
+    </button>
+    <button type="button" id="stop" (click)="stopAudio()">
         <i class="fa-solid fa-stop"></i>
     </button>
-    <button type="button" (click)="backwardAudio()">
+    <button type="button" id="fordward" (click)="forwardAudio()">
         <i class="fa-solid fa-forward fa-jello"></i>
     </button>
 </main>
