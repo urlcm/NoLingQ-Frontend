@@ -77,11 +77,11 @@ export class AudioService {
     stopPlaying() {
         this.audioBook.pause();
         this.progress.currentTimeSecs = Number(Math.floor(this.audioBook.currentTime));
-        this.saveProgress();
+        this.setCurrentTime();
     }
 
-    private saveProgress() {
-        this.progressService.saveProgress(this.progress).subscribe({
+    private setCurrentTime() {
+        this.progressService.setCurrentTime(this.progress).subscribe({
             next: (progressObject) => {
                 console.info("Progreso guardado", progressObject)
             },

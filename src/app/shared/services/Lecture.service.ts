@@ -14,8 +14,8 @@ export class LectureService {
 
   constructor(private httpClient: HttpClient) { }
 
-  SaveLecture(lecture: Lecture) : Observable<number>{
-    return this.httpClient.post<number>(this.url_main+this.url_save,lecture);
+  SaveLecture(lecture: Lecture) : Observable<Lecture>{
+    return this.httpClient.post<Lecture>(this.url_main+this.url_save,lecture);
   }
 
   getLectures():Observable<Lecture[]> {
