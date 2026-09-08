@@ -16,5 +16,8 @@ export class Lecture {
         sourceMedia?: SourceMedia,
         dictionarySource?: DictionarySource) {
         this.name = name;
+        this.sourceLecture = sourceLecture;
+        this.sourceMedia = sourceMedia;
+        this.dictionarySource = dictionarySource;
     }
 }

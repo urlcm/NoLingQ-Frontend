@@ -1,5 +1,5 @@
 export class SourceLecture {
-    IdSourceLecture:number;
+    idSourceLecture:number;
     urlSource:string;
 
     constructor(url?:string) {
