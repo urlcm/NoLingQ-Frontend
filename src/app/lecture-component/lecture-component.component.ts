@@ -72,7 +72,7 @@ export class LectureComponentComponent implements OnInit{
       this.wordsContainer.nativeElement.scrollTop = 0;
       this.changePageFromChild.emit(this.page)
       this.setPage();
-      this.saveProgress();
+      this.saveCurrentPageProgress();
     }
   }
 
@@ -81,7 +81,7 @@ export class LectureComponentComponent implements OnInit{
     this.wordsContainer.nativeElement.scrollTop = 0;
     this.changePageFromChild.emit(this.page)
     this.setPage()
-    this.saveProgress();
+    this.saveCurrentPageProgress();
   }
 
   setPage(){
@@ -141,10 +141,10 @@ export class LectureComponentComponent implements OnInit{
     );
   }
 
-  saveProgress(){
-    this.progressService.saveProgress(this.progress).subscribe({
+  saveCurrentPageProgress(){
+    this.progressService.setCurrentPage(this.progress).subscribe({
       next: (progressParam)=>{
-        this.progress = progressParam;
+        this.progress.CurrentPage = progressParam;
         console.log("Objeto actualizado",progressParam);
       },
       error:(error:any)=>{
