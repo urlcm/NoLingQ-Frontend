@@ -11,7 +11,7 @@
             <tr>
                 <td (click)="goToLecture(singleLecture.idLecture)" class="lecture">{{singleLecture.name}}</td>
                 <td>{{this.languageLecture}}</td>
-                <td><button><i class="fa-solid fa-pen-to-square"></i></button></td>
+                <td><button type="button" (click)="goToEditLecture(singleLecture.idLecture)"><i class="fa-solid fa-pen-to-square"></i></button></td>
                 <td><button><i class="fa-solid fa-trash"></i></button></td>
             </tr>
             }

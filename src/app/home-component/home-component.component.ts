@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { NavigationService} from '../shared/services/Navigation.services';
 import { LectureService } from '../shared/services/Lecture.service';
 import { NgForOf } from "@angular/common";
@@ -42,6 +42,10 @@ export class HomeComponentComponent implements OnInit{
 
   goToNewLecture(){
     this.navigationServices.goToCreateNewLecture();
+  }
+
+  goToEditLecture(id:number){
+    this.navigationServices.goToEditLecture(id);
   }
 
   getLectures(){
