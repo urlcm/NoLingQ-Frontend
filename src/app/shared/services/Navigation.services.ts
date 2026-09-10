@@ -16,4 +16,8 @@ export class NavigationService {
     goToCreateNewLecture(){
         this.router.navigate(["/new-lecture"]);
     }
+
+    goToEditLecture(id:number){
+        this.router.navigate(["/edit-lecture",id]);
+    }
 }
