@@ -10,6 +10,7 @@ import { SourceLecture } from '../shared/models/SourceLecture';
 import { SourceMedia } from '../shared/models/SourceMedia';
 import { Progress } from '../shared/models/Progress';
 import { NavigationService } from '../shared/services/Navigation.services';
+import { forkJoin, map, switchMap } from 'rxjs';
 //import { createLecture } from '../shared/utils/lecture.utils';
 @Component({
   selector: 'app-create-lecture',
@@ -19,77 +20,75 @@ import { NavigationService } from '../shared/services/Navigation.services';
 })
 export class CreateLectureComponent {
   constructor(
-    private lectureService:LectureService,
-    private sourceLectureService:SourceLectureService,
-    private progressService:ProgressService,
-    private sourceMediaService:SourceMediaService,
-    private navigationService:NavigationService
+    private lectureService: LectureService,
+    private sourceLectureService: SourceLectureService,
+    private progressService: ProgressService,
+    private sourceMediaService: SourceMediaService,
+    private navigationService: NavigationService
   ) { }
 
-  name:string = "";
-  url_media:string = "";
-  url_dictionary:string = "";
-  url_text:string = "";
+  name: string = "";
+  url_media: string = "";
+  url_dictionary: string = "";
+  url_text: string = "";
 
-  EncoderData(path:string):string{
-   return SlashEncoder.encode(path);
+  EncoderData(path: string): string {
+    return SlashEncoder.encode(path);
   }
 
-  saveAll(){
-    
-  }
+  saveAll() {
+    let sourceLecture = new SourceLecture(this.EncoderData(this.url_text));
 
-  saveLecture(lecture:Lecture){
-    this.lectureService.SaveLecture(lecture).subscribe({
-      next:(idLecture)=>{
-        lecture.idLecture = idLecture;
-        this.saveProgress(lecture);
-      }
-    });
-  }
-
-  saveSourceLecture() {
-    let sourceLecture = new SourceLecture;
-    sourceLecture.urlSource = this.EncoderData(this.url_text);
-
-    let lectureParam = new Lecture;
-    lectureParam.name = this.name;
-
-    this.sourceLectureService.saveSourceLecture(sourceLecture).subscribe({
-      next:(SourceLectureObject)=>{
-        sourceLecture.IdSourceLecture = SourceLectureObject;
-        lectureParam.sourceLecture = sourceLecture;
-        lectureParam.sourceMedia = this.saveSourceMedia();
-        this.saveLecture(lectureParam);
-        this.navigationService.goToHome();
-      }
-    })
-  }
-
-  saveSourceMedia() : SourceMedia{
-    const sourceMedia = new SourceMedia();
+    let sourceMedia = new SourceMedia();
     sourceMedia.urlSource = this.EncoderData(this.url_media);
-    sourceMedia.type = 1;
-    this.sourceMediaService.saveSourceMedia(sourceMedia).subscribe({
-      next:(SourceMediaObject)=>{
-        return SourceMediaObject;
+    //sourceMedia.type = 0;
+
+    forkJoin({
+      savedSourceLecture: this.sourceLectureService.saveSourceLecture(sourceLecture),
+      savedSourceMedia: this.sourceMediaService.saveSourceMedia(sourceMedia)
+    }).pipe(
+      switchMap(({ savedSourceLecture, savedSourceMedia }) => {
+        console.log('savedSourceMedia completo:', savedSourceMedia);
+        console.log('idSourceMedia:', savedSourceMedia?.idSourceMedia);
+        console.log('sourceLecture completo:', savedSourceLecture);
+        sourceLecture = savedSourceLecture
+
+        sourceMedia = savedSourceMedia;
+
+        const lecture = new Lecture(
+          this.EncoderData(this.name),
+          sourceLecture,
+          sourceMedia)
+
+        return this.lectureService.SaveLecture(lecture).pipe(
+          map(idLecture => {
+            lecture.idLecture = idLecture.idLecture;
+            return lecture;
+          })
+        );
+      }),
+
+      switchMap((lecture: Lecture) => {
+        const progress = new Progress();
+        progress.CurrentPage = 0;
+        progress.currentTimeSecs = 0;
+        progress.lecture = lecture; 
+
+        return this.progressService.saveProgress(progress);
+      })
+
+    ).subscribe(
+      {
+        next: () => {
+          this.navigationService.goToHome();
+        },
+        error: (err: any) => {
+          console.error("Error completo:", err);
+          console.error("Status:", err.status);
+          console.error("Mensaje:", err.error);
+          this.navigationService.goToHome();
+        }
       }
-    })
-
-    return new SourceMedia;
-  }
-
-  saveProgress(lecture:Lecture) : Progress{
-    let progress = new Progress();
-    progress.CurrentPage = 0;
-    progress.lecture = lecture;
-    progress.currentTimeSecs = 0;
-
-    this.progressService.saveProgress(progress).subscribe({
-      next:(progressObject) =>{
-        return progressObject;
-      }
-    })
-    return new Progress;
+    )
   }
 }
