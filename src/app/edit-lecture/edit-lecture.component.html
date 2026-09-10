@@ -1,0 +1,19 @@
+<form class="create-lecture">
+    <div class="container">
+        <legend>Nombre</legend>
+        <input type="text" placeholder="Nombre de la lectura" [(ngModel)]="this.name_lecture" name="name_lecture">
+    </div>
+    <!--<div class="container">
+        <legend>Url diccionario</legend>
+        <input type="text" placeholder="Ruta del diccionario" [(ngModel)]="this.url_dictionary" name="url_dictionary">
+    </div>-->
+        <div class="container">
+        <legend>Url Texto</legend>
+        <input type="text" placeholder="Ingresa la ruta del archivo de texto" id="url_text" [(ngModel)]="this.url_text" name="url_text">
+    </div>
+    <div class="container">
+        <legend>Url Media</legend>
+        <input type="text" placeholder="Ejemplo" [(ngModel)]="this.url_media" name="url_media">
+    </div>
+</form>
+<button class="create-button" type="button" (click)="save()">Crear</button>
