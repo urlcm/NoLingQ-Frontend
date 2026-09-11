@@ -3,6 +3,7 @@ import { LectureService } from '../shared/services/Lecture.service';
 import { Lecture } from '../shared/models/Lecture';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavigationService } from '../shared/services/Navigation.services';
 
 @Component({
   selector: 'app-edit-lecture',
@@ -14,7 +15,8 @@ export class EditLectureComponent implements OnInit {
 
   constructor(
     private lectureService: LectureService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private navigationService:NavigationService) { }
   ngOnInit(): void {
     let id: number = +this.route.snapshot.paramMap.get("id");
     this.getLecture(id);
@@ -35,6 +37,7 @@ export class EditLectureComponent implements OnInit {
     this.lectureService.updateLecture(this.lecture).subscribe({
       next: (data) => {
         console.log("Data modificada", data);
+        this.goToHome();
       },
       error: (error) => {
         console.error("se dio el siguiente error al querer modificar", error);
@@ -51,5 +54,7 @@ export class EditLectureComponent implements OnInit {
     })
   }
 
-
+  goToHome(){
+    this.navigationService.goToHome();
+  }
 }
