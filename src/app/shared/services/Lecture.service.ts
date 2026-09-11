@@ -29,8 +29,8 @@ export class LectureService {
     return this.httpClient.get<Lecture>(this.url_main+this.url_get_by_id+id);
   }
 
-  deleteLectureById(id:number){
-    this.httpClient.delete(this.url_main+this.url_delete+id);
+  deleteLectureById(id:number):Observable<void>{
+    return this.httpClient.delete<void>(this.url_main+this.url_delete+id);
   }
 
   updateLecture(lecture:Lecture):Observable<Lecture>{
