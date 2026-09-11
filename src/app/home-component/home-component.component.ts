@@ -71,4 +71,22 @@ export class HomeComponentComponent implements OnInit{
     console.info("Objeto devuelto en el filtro: ",lectureFilter);
     return lectureFilter;
   }
+
+  deleteLecture(id:number){
+    this.lectureService.deleteLectureById(id).subscribe(
+      {
+        next:()=>{
+          this.removeFromArray(id);
+          console.info("Se ejecuto el metodo delete");
+        },
+        error:(err:any)=>{
+          console.error("Se presento el siguiente error", err);
+        }
+      }
+    );
+  }
+
+  removeFromArray(id:number){
+  this.lectures = this.lectures.filter(item => item.idLecture !== id);
+  }
 }
