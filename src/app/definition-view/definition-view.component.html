@@ -3,17 +3,30 @@
         <div class="container">
             <input type="text" placeholder="Word" [(ngModel)]="word.word" name="word">
 
-            <div class="tags-input-container">
-                @for (tag of tags(); track $index){
-                <span class="tag">
-                    {{ tag }}
-                    <button type="button" class="tag-close" (click)="removeTag($index)">x</button>
-                </span>
+            <div class="wrapper">
+                            <div class="tags-input-container">
+                @for (tag of tags; track $index; let i = $index) {
+                    <span class="tag">
+                        {{tag.word}}
+                        <button
+                        type="button"
+                        class="tag-remove"
+                        (click)="removeTag(i)"
+                        aria-label="Remove tag"
+                        > &times;</button>
+                    </span>
                 }
-
-                <input type="text" id="tag-field" [placeholder]="tags().length === 0 ? placeholderText() : ''"
-                    [(ngModel)]="inputValue" (keydown.enter)="addTag($event)" (keydown.comma)="addTag($event)"
-                    (keydown.backspace)="handleBackspace()" />
+                <input
+                    type="text"
+                    class="tag-input-field"
+                    [placeholder]="tags.length === 0 ? placeholder : ''"
+                    [(ngModel)]="currentValue.word"
+                    name="currentValue"
+                    (keydown.enter)="addTag($event)"
+                    (keydown.backspace)="onBackspace()"
+                />
+            </div>
+            <button type="button">Link to parend</button>                
             </div>
 
             <textarea placeholder="Translation" [(ngModel)]="word.definition" name="definition"></textarea>
