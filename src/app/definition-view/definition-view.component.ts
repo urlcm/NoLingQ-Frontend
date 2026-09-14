@@ -3,10 +3,11 @@ import { Word } from '../shared/models/Word';
 import { FormsModule } from '@angular/forms';
 import { WordService } from '../shared/services/word.services';
 import { Difficulty, DifficultyLevel } from '../shared/models/Difficulty';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-definition-view',
-  imports: [FormsModule],
+  imports: [FormsModule, NgFor],
   templateUrl: './definition-view.component.html',
   styleUrl: './definition-view.component.css'
 })
@@ -15,40 +16,40 @@ export class DefinitionViewComponent {
     private wordService: WordService,
   ) { }
   difficulty: Difficulty = new Difficulty();
+  tags:Word[] = [];
+  placeholder: string = "Link to parend";
+  currentValue:Word = new Word;
+
 
   @Input() word = new Word;
   isThereDifficulty: boolean;
 
-  tags = signal<string[]>(["Example"]);
-  inputValue = "";
-  placeholderText = input<string>('Type and press Enter...');
 
   addTag(event: Event) {
-    const keyboardEvent = event as KeyboardEvent;
+    event.preventDefault();
+    this.currentValue.word = this.currentValue.word.trim();
 
-    keyboardEvent.preventDefault();
-    const value = this.inputValue.trim();
-
-    if (value && !this.tags().includes(value)) {
-      this.tags.update(currentTags => [...currentTags, value]);
+    if(!this.currentValue.word) {
+      return;
     }
 
-    this.inputValue = "";
+    const alreadyExist = this.tags.some(tag => tag.word.toLowerCase() === this.currentValue.word.toLowerCase());
+
+    if(!alreadyExist) {
+      this.tags.push(this.currentValue);
+    }
+
+    this.currentValue = new Word;
   }
 
-  handleBackspace() {
-    if (this.inputValue === "" && this.tags().length > 0) {
-      this.tags.update(currentTags => {
-        const update = [...currentTags];
-        update.pop();
-        return update;
-      })
+  onBackspace() {
+    if(this.currentValue.word.length === 0 && this.tags.length > 0){
+      this.removeTag(this.tags.length-1);
     }
   }
 
   removeTag(indexToRemove: number): void {
-    this.tags.update(currentTags => currentTags.filter((_, index) => index !== indexToRemove)
-    )
+    this.tags.splice(indexToRemove,1)
   }
 
   saveWord() {
