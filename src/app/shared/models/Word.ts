@@ -8,4 +8,6 @@ export class Word{
     definition:string;
     image:string;
     dictionarySource:DictionarySource;
+    parendWord?:Word;
+    words?:Word[];   
 }
