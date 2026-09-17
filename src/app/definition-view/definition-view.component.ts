@@ -36,10 +36,9 @@ export class DefinitionViewComponent {
     const alreadyExist = this.tags.some(tag => tag.word.toLowerCase() === this.currentValue.word.toLowerCase());
 
     if(!alreadyExist) {
-      this.tags.push(this.currentValue);
+      console.log("Datos a enviar", this.currentValue);
+      this.findWordByWord();
     }
-
-    this.currentValue = new Word;
   }
 
   onBackspace() {
@@ -103,5 +102,20 @@ export class DefinitionViewComponent {
     }
 
     this.isThereDifficulty = false;
+  }
+
+  findWordByWord(){
+    this.wordService.getWordByWord(this.currentValue.word).subscribe({
+      next: (data: Word) => {
+        console.log("Data que llego",data);
+        if(data != null) {
+          this.tags.push(data);
+          this.currentValue = new Word;
+        }
+      },
+      error: (error: any) => {
+        console.log("Error al buscar la palabra", error);
+      }
+    })
   }
 }
