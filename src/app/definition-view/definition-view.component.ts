@@ -118,4 +118,14 @@ export class DefinitionViewComponent {
       }
     })
   }
+
+  linkToParent(){
+    if(this.word.idWord <= 0)
+      return;
+
+    if(this.tags.length > 0){
+      this.word.parendWord = this.tags[0];
+      this.updateWord();
+    }
+  }
 }

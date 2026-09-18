@@ -26,7 +26,7 @@
                     (keydown.backspace)="onBackspace()"
                 />
             </div>
-            <button type="button">Link to parend</button>                
+            <button type="button" (click)="linkToParent()">Link to parend</button>                
             </div>
 
             <textarea placeholder="Translation" [(ngModel)]="word.definition" name="definition"></textarea>
