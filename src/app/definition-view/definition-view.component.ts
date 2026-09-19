@@ -23,6 +23,7 @@ export class DefinitionViewComponent {
 
   @Input() word = new Word;
   isThereDifficulty: boolean;
+  isWordSaved:boolean = true;
 
 
   addTag(event: Event) {
@@ -102,6 +103,7 @@ export class DefinitionViewComponent {
     }
 
     this.isThereDifficulty = false;
+    this.isWordSaved = true;
   }
 
   findWordByWord(){
@@ -120,8 +122,10 @@ export class DefinitionViewComponent {
   }
 
   linkToParent(){
-    if(this.word.idWord <= 0)
+    if(this.word.idWord <= 0){
+      this.isWordSaved = false;
       return;
+    }
 
     if(this.tags.length > 0){
       this.word.parendWord = this.tags[0];
