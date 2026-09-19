@@ -26,6 +26,9 @@
                     (keydown.backspace)="onBackspace()"
                 />
             </div>
+            @if(this.isWordSaved != true){
+                <p>Debes guardar la palabra primero</p>
+            }
             <button type="button" (click)="linkToParent()">Link to parend</button>                
             </div>
 
