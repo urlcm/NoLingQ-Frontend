@@ -13,6 +13,7 @@ import { Lecture } from '../shared/models/Lecture';
 import { Word } from '../shared/models/Word';
 import { splitWord, WordToArray } from '../shared/utils/word.utils';
 import { removeDuplicatedWord } from '../shared/utils/filterwords.utils';
+import { NavigationService } from '../shared/services/Navigation.services';
 
 @Component({
   selector: 'app-lecture-view',
@@ -26,7 +27,8 @@ export class LectureViewComponent implements OnInit {
     private textService: TextService,
     private route: ActivatedRoute,
     private progressService: ProgressService,
-    private lectureStateService:LectureState
+    private lectureStateService:LectureState,
+    private navigationService:NavigationService
   ) { }
 
   @Output() textOutput: string = "";
@@ -50,6 +52,9 @@ export class LectureViewComponent implements OnInit {
         next: (data) => {this.lecture = data
           //console.info("El objeto traido es: ",this.lecture)
           //this.getText();
+          if (this.lecture == null) {
+            this.navigationService.goToHome();
+          }
         },
       }
     );
