@@ -15,6 +15,8 @@ export class NavbarComponent {
     private audioService: AudioService
   ) { }
 
+  darModeActivated: boolean = true;
+
   goToHome() {
     //if (this.audioService.isThereAudiobook)
       //this.stopPlay();
@@ -24,5 +26,13 @@ export class NavbarComponent {
 
   stopPlay() {
     this.audioService.stopPlaying();
+  }
+
+  darkMode(){
+    this.darModeActivated = true;
+  }
+
+  whitehMode(){
+    this.darModeActivated = false;
   }
 }
